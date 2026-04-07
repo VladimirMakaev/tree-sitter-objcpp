@@ -322,6 +322,24 @@
     ]
   },
   {
+    "type": "specifier_qualifier",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "protocol_qualifier",
+        "named": true
+      },
+      {
+        "type": "type_qualifier",
+        "named": true
+      },
+      {
+        "type": "type_specifier",
+        "named": true
+      }
+    ]
+  },
+  {
     "type": "statement",
     "named": true,
     "subtypes": [
@@ -432,6 +450,10 @@
         "named": true
       },
       {
+        "type": "generic_specifier",
+        "named": true
+      },
+      {
         "type": "placeholder_type_specifier",
         "named": true
       },
@@ -457,6 +479,14 @@
       },
       {
         "type": "type_identifier",
+        "named": true
+      },
+      {
+        "type": "typedefed_specifier",
+        "named": true
+      },
+      {
+        "type": "typeof_specifier",
         "named": true
       },
       {
@@ -997,6 +1027,37 @@
     }
   },
   {
+    "type": "availability_attribute_specifier",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "concatenated_string",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "method_identifier",
+          "named": true
+        },
+        {
+          "type": "string_literal",
+          "named": true
+        },
+        {
+          "type": "version",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "base_class_clause",
     "named": true,
     "fields": {},
@@ -1399,6 +1460,213 @@
     }
   },
   {
+    "type": "class_forward_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "parameterized_arguments",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "class_implementation",
+    "named": true,
+    "fields": {
+      "category": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "superclass": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_declaration",
+          "named": true
+        },
+        {
+          "type": "attribute_specifier",
+          "named": true
+        },
+        {
+          "type": "availability_attribute_specifier",
+          "named": true
+        },
+        {
+          "type": "generic_arguments",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "implementation_definition",
+          "named": true
+        },
+        {
+          "type": "instance_variables",
+          "named": true
+        },
+        {
+          "type": "ms_declspec_modifier",
+          "named": true
+        },
+        {
+          "type": "parameterized_arguments",
+          "named": true
+        },
+        {
+          "type": "storage_class_specifier",
+          "named": true
+        },
+        {
+          "type": "type_qualifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "class_interface",
+    "named": true,
+    "fields": {
+      "category": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "superclass": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_declaration",
+          "named": true
+        },
+        {
+          "type": "attribute_specifier",
+          "named": true
+        },
+        {
+          "type": "availability_attribute_specifier",
+          "named": true
+        },
+        {
+          "type": "declaration",
+          "named": true
+        },
+        {
+          "type": "function_definition",
+          "named": true
+        },
+        {
+          "type": "generic_arguments",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "instance_variables",
+          "named": true
+        },
+        {
+          "type": "method_declaration",
+          "named": true
+        },
+        {
+          "type": "ms_declspec_modifier",
+          "named": true
+        },
+        {
+          "type": "parameterized_arguments",
+          "named": true
+        },
+        {
+          "type": "preproc_call",
+          "named": true
+        },
+        {
+          "type": "preproc_def",
+          "named": true
+        },
+        {
+          "type": "preproc_if",
+          "named": true
+        },
+        {
+          "type": "preproc_ifdef",
+          "named": true
+        },
+        {
+          "type": "property_declaration",
+          "named": true
+        },
+        {
+          "type": "storage_class_specifier",
+          "named": true
+        },
+        {
+          "type": "struct_specifier",
+          "named": true
+        },
+        {
+          "type": "type_definition",
+          "named": true
+        },
+        {
+          "type": "type_qualifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "class_specifier",
     "named": true,
     "fields": {
@@ -1549,6 +1817,32 @@
     }
   },
   {
+    "type": "compatibility_alias_declaration",
+    "named": true,
+    "fields": {
+      "alias": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "class": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "compound_literal_expression",
     "named": true,
     "fields": {
@@ -1622,6 +1916,22 @@
           "named": true
         },
         {
+          "type": "class_forward_declaration",
+          "named": true
+        },
+        {
+          "type": "class_implementation",
+          "named": true
+        },
+        {
+          "type": "class_interface",
+          "named": true
+        },
+        {
+          "type": "compatibility_alias_declaration",
+          "named": true
+        },
+        {
           "type": "concept_definition",
           "named": true
         },
@@ -1635,6 +1945,10 @@
         },
         {
           "type": "linkage_specification",
+          "named": true
+        },
+        {
+          "type": "module_import",
           "named": true
         },
         {
@@ -1667,6 +1981,14 @@
         },
         {
           "type": "preproc_include",
+          "named": true
+        },
+        {
+          "type": "protocol_declaration",
+          "named": true
+        },
+        {
+          "type": "protocol_forward_declaration",
           "named": true
         },
         {
@@ -2078,6 +2400,10 @@
           "named": true
         },
         {
+          "type": "availability_attribute_specifier",
+          "named": true
+        },
+        {
           "type": "explicit_function_specifier",
           "named": true
         },
@@ -2109,6 +2435,22 @@
           "named": true
         },
         {
+          "type": "class_forward_declaration",
+          "named": true
+        },
+        {
+          "type": "class_implementation",
+          "named": true
+        },
+        {
+          "type": "class_interface",
+          "named": true
+        },
+        {
+          "type": "compatibility_alias_declaration",
+          "named": true
+        },
+        {
           "type": "concept_definition",
           "named": true
         },
@@ -2122,6 +2464,10 @@
         },
         {
           "type": "linkage_specification",
+          "named": true
+        },
+        {
+          "type": "module_import",
           "named": true
         },
         {
@@ -2154,6 +2500,14 @@
         },
         {
           "type": "preproc_include",
+          "named": true
+        },
+        {
+          "type": "protocol_declaration",
+          "named": true
+        },
+        {
+          "type": "protocol_forward_declaration",
           "named": true
         },
         {
@@ -2542,6 +2896,10 @@
         },
         {
           "type": "attribute_specifier",
+          "named": true
+        },
+        {
+          "type": "availability_attribute_specifier",
           "named": true
         },
         {
@@ -3019,6 +3377,10 @@
           "named": true
         },
         {
+          "type": "availability_attribute_specifier",
+          "named": true
+        },
+        {
           "type": "ms_declspec_modifier",
           "named": true
         },
@@ -3266,6 +3628,10 @@
           "named": true
         },
         {
+          "type": "availability_attribute_specifier",
+          "named": true
+        },
+        {
           "type": "default_method_clause",
           "named": true
         },
@@ -3309,6 +3675,21 @@
     }
   },
   {
+    "type": "generic_arguments",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "type_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "generic_expression",
     "named": true,
     "fields": {},
@@ -3322,6 +3703,25 @@
         },
         {
           "type": "type_descriptor",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "generic_specifier",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_name",
           "named": true
         }
       ]
@@ -3603,6 +4003,65 @@
     }
   },
   {
+    "type": "implementation_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "declaration",
+          "named": true
+        },
+        {
+          "type": "function_definition",
+          "named": true
+        },
+        {
+          "type": "macro_type_specifier",
+          "named": true
+        },
+        {
+          "type": "method_definition",
+          "named": true
+        },
+        {
+          "type": "preproc_call",
+          "named": true
+        },
+        {
+          "type": "preproc_def",
+          "named": true
+        },
+        {
+          "type": "preproc_function_def",
+          "named": true
+        },
+        {
+          "type": "preproc_if",
+          "named": true
+        },
+        {
+          "type": "preproc_ifdef",
+          "named": true
+        },
+        {
+          "type": "property_implementation",
+          "named": true
+        },
+        {
+          "type": "struct_specifier",
+          "named": true
+        },
+        {
+          "type": "type_definition",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "init_declarator",
     "named": true,
     "fields": {
@@ -3726,6 +4185,75 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "instance_variable",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "preproc_if",
+          "named": true
+        },
+        {
+          "type": "preproc_ifdef",
+          "named": true
+        },
+        {
+          "type": "struct_declaration",
+          "named": true
+        },
+        {
+          "type": "visibility_specification",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "instance_variables",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "attribute_declaration",
+          "named": true
+        },
+        {
+          "type": "attribute_specifier",
+          "named": true
+        },
+        {
+          "type": "instance_variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "keyword_declarator",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "method_type",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -3908,6 +4436,268 @@
         "types": [
           {
             "type": "string_literal",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "macro_type_specifier",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type_descriptor",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "method_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "attribute_declaration",
+          "named": true
+        },
+        {
+          "type": "attribute_specifier",
+          "named": true
+        },
+        {
+          "type": "availability_attribute_specifier",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_declarator",
+          "named": true
+        },
+        {
+          "type": "method_parameter",
+          "named": true
+        },
+        {
+          "type": "method_type",
+          "named": true
+        },
+        {
+          "type": "ms_declspec_modifier",
+          "named": true
+        },
+        {
+          "type": "storage_class_specifier",
+          "named": true
+        },
+        {
+          "type": "type_qualifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "method_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_declaration",
+          "named": true
+        },
+        {
+          "type": "attribute_specifier",
+          "named": true
+        },
+        {
+          "type": "availability_attribute_specifier",
+          "named": true
+        },
+        {
+          "type": "compound_statement",
+          "named": true
+        },
+        {
+          "type": "declaration",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_declarator",
+          "named": true
+        },
+        {
+          "type": "method_parameter",
+          "named": true
+        },
+        {
+          "type": "method_type",
+          "named": true
+        },
+        {
+          "type": "ms_declspec_modifier",
+          "named": true
+        },
+        {
+          "type": "storage_class_specifier",
+          "named": true
+        },
+        {
+          "type": "type_qualifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "method_identifier",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "method_parameter",
+    "named": true,
+    "fields": {
+      "declarator": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "_declarator",
+            "named": true
+          },
+          {
+            "type": "init_declarator",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type_specifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "attribute_declaration",
+          "named": true
+        },
+        {
+          "type": "attribute_specifier",
+          "named": true
+        },
+        {
+          "type": "availability_attribute_specifier",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "method_type",
+          "named": true
+        },
+        {
+          "type": "ms_declspec_modifier",
+          "named": true
+        },
+        {
+          "type": "storage_class_specifier",
+          "named": true
+        },
+        {
+          "type": "type_qualifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "method_type",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_specifier",
+          "named": true
+        },
+        {
+          "type": "parameterized_arguments",
+          "named": true
+        },
+        {
+          "type": "type_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "module_import",
+    "named": true,
+    "fields": {
+      "path": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": ".",
+            "named": false
+          },
+          {
+            "type": "identifier",
             "named": true
           }
         ]
@@ -4230,6 +5020,10 @@
           "named": true
         },
         {
+          "type": "availability_attribute_specifier",
+          "named": true
+        },
+        {
           "type": "ms_declspec_modifier",
           "named": true
         },
@@ -4308,6 +5102,10 @@
         },
         {
           "type": "attribute_specifier",
+          "named": true
+        },
+        {
+          "type": "availability_attribute_specifier",
           "named": true
         },
         {
@@ -4393,6 +5191,10 @@
           "named": true
         },
         {
+          "type": "availability_attribute_specifier",
+          "named": true
+        },
+        {
           "type": "ms_declspec_modifier",
           "named": true
         },
@@ -4448,6 +5250,25 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "parameterized_arguments",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_name",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -4533,6 +5354,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "platform",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "pointer_declarator",
@@ -4781,6 +5607,22 @@
           "named": true
         },
         {
+          "type": "class_forward_declaration",
+          "named": true
+        },
+        {
+          "type": "class_implementation",
+          "named": true
+        },
+        {
+          "type": "class_interface",
+          "named": true
+        },
+        {
+          "type": "compatibility_alias_declaration",
+          "named": true
+        },
+        {
           "type": "concept_definition",
           "named": true
         },
@@ -4805,7 +5647,19 @@
           "named": true
         },
         {
+          "type": "implementation_definition",
+          "named": true
+        },
+        {
           "type": "linkage_specification",
+          "named": true
+        },
+        {
+          "type": "method_declaration",
+          "named": true
+        },
+        {
+          "type": "module_import",
           "named": true
         },
         {
@@ -4838,6 +5692,18 @@
         },
         {
           "type": "preproc_include",
+          "named": true
+        },
+        {
+          "type": "property_declaration",
+          "named": true
+        },
+        {
+          "type": "protocol_declaration",
+          "named": true
+        },
+        {
+          "type": "protocol_forward_declaration",
           "named": true
         },
         {
@@ -4917,6 +5783,22 @@
           "named": true
         },
         {
+          "type": "class_forward_declaration",
+          "named": true
+        },
+        {
+          "type": "class_implementation",
+          "named": true
+        },
+        {
+          "type": "class_interface",
+          "named": true
+        },
+        {
+          "type": "compatibility_alias_declaration",
+          "named": true
+        },
+        {
           "type": "concept_definition",
           "named": true
         },
@@ -4942,6 +5824,10 @@
         },
         {
           "type": "linkage_specification",
+          "named": true
+        },
+        {
+          "type": "module_import",
           "named": true
         },
         {
@@ -4974,6 +5860,14 @@
         },
         {
           "type": "preproc_include",
+          "named": true
+        },
+        {
+          "type": "protocol_declaration",
+          "named": true
+        },
+        {
+          "type": "protocol_forward_declaration",
           "named": true
         },
         {
@@ -5024,6 +5918,22 @@
           "named": true
         },
         {
+          "type": "class_forward_declaration",
+          "named": true
+        },
+        {
+          "type": "class_implementation",
+          "named": true
+        },
+        {
+          "type": "class_interface",
+          "named": true
+        },
+        {
+          "type": "compatibility_alias_declaration",
+          "named": true
+        },
+        {
           "type": "concept_definition",
           "named": true
         },
@@ -5048,7 +5958,19 @@
           "named": true
         },
         {
+          "type": "implementation_definition",
+          "named": true
+        },
+        {
           "type": "linkage_specification",
+          "named": true
+        },
+        {
+          "type": "method_declaration",
+          "named": true
+        },
+        {
+          "type": "module_import",
           "named": true
         },
         {
@@ -5081,6 +6003,18 @@
         },
         {
           "type": "preproc_include",
+          "named": true
+        },
+        {
+          "type": "property_declaration",
+          "named": true
+        },
+        {
+          "type": "protocol_declaration",
+          "named": true
+        },
+        {
+          "type": "protocol_forward_declaration",
           "named": true
         },
         {
@@ -5224,6 +6158,22 @@
           "named": true
         },
         {
+          "type": "class_forward_declaration",
+          "named": true
+        },
+        {
+          "type": "class_implementation",
+          "named": true
+        },
+        {
+          "type": "class_interface",
+          "named": true
+        },
+        {
+          "type": "compatibility_alias_declaration",
+          "named": true
+        },
+        {
           "type": "concept_definition",
           "named": true
         },
@@ -5248,7 +6198,19 @@
           "named": true
         },
         {
+          "type": "implementation_definition",
+          "named": true
+        },
+        {
           "type": "linkage_specification",
+          "named": true
+        },
+        {
+          "type": "method_declaration",
+          "named": true
+        },
+        {
+          "type": "module_import",
           "named": true
         },
         {
@@ -5281,6 +6243,18 @@
         },
         {
           "type": "preproc_include",
+          "named": true
+        },
+        {
+          "type": "property_declaration",
+          "named": true
+        },
+        {
+          "type": "protocol_declaration",
+          "named": true
+        },
+        {
+          "type": "protocol_forward_declaration",
           "named": true
         },
         {
@@ -5360,6 +6334,22 @@
           "named": true
         },
         {
+          "type": "class_forward_declaration",
+          "named": true
+        },
+        {
+          "type": "class_implementation",
+          "named": true
+        },
+        {
+          "type": "class_interface",
+          "named": true
+        },
+        {
+          "type": "compatibility_alias_declaration",
+          "named": true
+        },
+        {
           "type": "concept_definition",
           "named": true
         },
@@ -5384,7 +6374,19 @@
           "named": true
         },
         {
+          "type": "implementation_definition",
+          "named": true
+        },
+        {
           "type": "linkage_specification",
+          "named": true
+        },
+        {
+          "type": "method_declaration",
+          "named": true
+        },
+        {
+          "type": "module_import",
           "named": true
         },
         {
@@ -5417,6 +6419,18 @@
         },
         {
           "type": "preproc_include",
+          "named": true
+        },
+        {
+          "type": "property_declaration",
+          "named": true
+        },
+        {
+          "type": "protocol_declaration",
+          "named": true
+        },
+        {
+          "type": "protocol_forward_declaration",
           "named": true
         },
         {
@@ -5454,6 +6468,20 @@
     "type": "preproc_include",
     "named": true,
     "fields": {
+      "directive": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "#import",
+            "named": false
+          },
+          {
+            "type": "#include",
+            "named": false
+          }
+        ]
+      },
       "path": {
         "multiple": false,
         "required": true,
@@ -5485,6 +6513,244 @@
     "children": {
       "multiple": true,
       "required": false,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "property_attribute",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "property_attributes_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "property_attribute",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "property_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_declaration",
+          "named": true
+        },
+        {
+          "type": "attribute_specifier",
+          "named": true
+        },
+        {
+          "type": "availability_attribute_specifier",
+          "named": true
+        },
+        {
+          "type": "declaration",
+          "named": true
+        },
+        {
+          "type": "ms_declspec_modifier",
+          "named": true
+        },
+        {
+          "type": "property_attributes_declaration",
+          "named": true
+        },
+        {
+          "type": "storage_class_specifier",
+          "named": true
+        },
+        {
+          "type": "struct_declaration",
+          "named": true
+        },
+        {
+          "type": "type_qualifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "property_implementation",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "protocol_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_declaration",
+          "named": true
+        },
+        {
+          "type": "attribute_specifier",
+          "named": true
+        },
+        {
+          "type": "availability_attribute_specifier",
+          "named": true
+        },
+        {
+          "type": "declaration",
+          "named": true
+        },
+        {
+          "type": "function_definition",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "method_declaration",
+          "named": true
+        },
+        {
+          "type": "ms_declspec_modifier",
+          "named": true
+        },
+        {
+          "type": "preproc_call",
+          "named": true
+        },
+        {
+          "type": "preproc_def",
+          "named": true
+        },
+        {
+          "type": "preproc_if",
+          "named": true
+        },
+        {
+          "type": "preproc_ifdef",
+          "named": true
+        },
+        {
+          "type": "property_declaration",
+          "named": true
+        },
+        {
+          "type": "protocol_reference_list",
+          "named": true
+        },
+        {
+          "type": "qualified_protocol_interface_declaration",
+          "named": true
+        },
+        {
+          "type": "storage_class_specifier",
+          "named": true
+        },
+        {
+          "type": "struct_specifier",
+          "named": true
+        },
+        {
+          "type": "type_definition",
+          "named": true
+        },
+        {
+          "type": "type_qualifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "protocol_forward_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_declaration",
+          "named": true
+        },
+        {
+          "type": "attribute_specifier",
+          "named": true
+        },
+        {
+          "type": "availability_attribute_specifier",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "ms_declspec_modifier",
+          "named": true
+        },
+        {
+          "type": "storage_class_specifier",
+          "named": true
+        },
+        {
+          "type": "type_qualifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "protocol_qualifier",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "protocol_reference_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
       "types": [
         {
           "type": "identifier",
@@ -5582,6 +6848,57 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "qualified_protocol_interface_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "declaration",
+          "named": true
+        },
+        {
+          "type": "function_definition",
+          "named": true
+        },
+        {
+          "type": "method_declaration",
+          "named": true
+        },
+        {
+          "type": "preproc_call",
+          "named": true
+        },
+        {
+          "type": "preproc_def",
+          "named": true
+        },
+        {
+          "type": "preproc_if",
+          "named": true
+        },
+        {
+          "type": "preproc_ifdef",
+          "named": true
+        },
+        {
+          "type": "property_declaration",
+          "named": true
+        },
+        {
+          "type": "struct_specifier",
+          "named": true
+        },
+        {
+          "type": "type_definition",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -5969,6 +7286,64 @@
     }
   },
   {
+    "type": "struct_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_declaration",
+          "named": true
+        },
+        {
+          "type": "attribute_specifier",
+          "named": true
+        },
+        {
+          "type": "availability_attribute_specifier",
+          "named": true
+        },
+        {
+          "type": "ms_declspec_modifier",
+          "named": true
+        },
+        {
+          "type": "specifier_qualifier",
+          "named": true
+        },
+        {
+          "type": "storage_class_specifier",
+          "named": true
+        },
+        {
+          "type": "struct_declarator",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "struct_declarator",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_declarator",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "struct_specifier",
     "named": true,
     "fields": {
@@ -6296,6 +7671,10 @@
           "named": true
         },
         {
+          "type": "availability_attribute_specifier",
+          "named": true
+        },
+        {
           "type": "ms_declspec_modifier",
           "named": true
         },
@@ -6510,11 +7889,27 @@
           "named": true
         },
         {
+          "type": "class_forward_declaration",
+          "named": true
+        },
+        {
+          "type": "class_implementation",
+          "named": true
+        },
+        {
+          "type": "class_interface",
+          "named": true
+        },
+        {
           "type": "co_return_statement",
           "named": true
         },
         {
           "type": "co_yield_statement",
+          "named": true
+        },
+        {
+          "type": "compatibility_alias_declaration",
           "named": true
         },
         {
@@ -6570,6 +7965,10 @@
           "named": true
         },
         {
+          "type": "module_import",
+          "named": true
+        },
+        {
           "type": "namespace_alias_definition",
           "named": true
         },
@@ -6599,6 +7998,14 @@
         },
         {
           "type": "preproc_include",
+          "named": true
+        },
+        {
+          "type": "protocol_declaration",
+          "named": true
+        },
+        {
+          "type": "protocol_forward_declaration",
           "named": true
         },
         {
@@ -6755,6 +8162,37 @@
     }
   },
   {
+    "type": "type_name",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_abstract_declarator",
+          "named": true
+        },
+        {
+          "type": "_declarator",
+          "named": true
+        },
+        {
+          "type": "attribute_specifier",
+          "named": true
+        },
+        {
+          "type": "protocol_reference_list",
+          "named": true
+        },
+        {
+          "type": "specifier_qualifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "type_parameter_declaration",
     "named": true,
     "fields": {},
@@ -6802,6 +8240,40 @@
         },
         {
           "type": "type_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "typedefed_specifier",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "protocol_reference_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "typeof_specifier",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "type_descriptor",
           "named": true
         }
       ]
@@ -7062,6 +8534,10 @@
           "named": true
         },
         {
+          "type": "availability_attribute_specifier",
+          "named": true
+        },
+        {
           "type": "ms_declspec_modifier",
           "named": true
         },
@@ -7092,7 +8568,39 @@
     }
   },
   {
+    "type": "version",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "number_literal",
+          "named": true
+        },
+        {
+          "type": "platform",
+          "named": true
+        },
+        {
+          "type": "version_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "virtual_specifier",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "visibility_specification",
     "named": true,
     "fields": {}
   },
@@ -7179,6 +8687,10 @@
     "named": false
   },
   {
+    "type": "#import",
+    "named": false
+  },
+  {
     "type": "#include",
     "named": false
   },
@@ -7212,6 +8724,10 @@
   },
   {
     "type": "()",
+    "named": false
+  },
+  {
+    "type": "(class)",
     "named": false
   },
   {
@@ -7343,6 +8859,114 @@
     "named": false
   },
   {
+    "type": "@class",
+    "named": false
+  },
+  {
+    "type": "@compatibility_alias",
+    "named": false
+  },
+  {
+    "type": "@dynamic",
+    "named": false
+  },
+  {
+    "type": "@end",
+    "named": false
+  },
+  {
+    "type": "@implementation",
+    "named": false
+  },
+  {
+    "type": "@import",
+    "named": false
+  },
+  {
+    "type": "@interface",
+    "named": false
+  },
+  {
+    "type": "@optional",
+    "named": false
+  },
+  {
+    "type": "@package",
+    "named": false
+  },
+  {
+    "type": "@private",
+    "named": false
+  },
+  {
+    "type": "@property",
+    "named": false
+  },
+  {
+    "type": "@protected",
+    "named": false
+  },
+  {
+    "type": "@protocol",
+    "named": false
+  },
+  {
+    "type": "@public",
+    "named": false
+  },
+  {
+    "type": "@required",
+    "named": false
+  },
+  {
+    "type": "@synthesize",
+    "named": false
+  },
+  {
+    "type": "API_AVAILABLE",
+    "named": false
+  },
+  {
+    "type": "API_DEPRECATED",
+    "named": false
+  },
+  {
+    "type": "API_UNAVAILABLE",
+    "named": false
+  },
+  {
+    "type": "BOOL",
+    "named": false
+  },
+  {
+    "type": "CF_FORMAT_FUNCTION",
+    "named": false
+  },
+  {
+    "type": "CF_RETURNS_NOT_RETAINED",
+    "named": false
+  },
+  {
+    "type": "CF_RETURNS_RETAINED",
+    "named": false
+  },
+  {
+    "type": "Class",
+    "named": false
+  },
+  {
+    "type": "DEPRECATED_ATTRIBUTE",
+    "named": false
+  },
+  {
+    "type": "DEPRECATED_MSG_ATTRIBUTE",
+    "named": false
+  },
+  {
+    "type": "IMP",
+    "named": false
+  },
+  {
     "type": "L\"",
     "named": false
   },
@@ -7355,6 +8979,66 @@
     "named": false
   },
   {
+    "type": "NS_AUTOMATED_REFCOUNT_UNAVAILABLE",
+    "named": false
+  },
+  {
+    "type": "NS_AVAILABLE",
+    "named": false
+  },
+  {
+    "type": "NS_AVAILABLE_IOS",
+    "named": false
+  },
+  {
+    "type": "NS_CLASS_AVAILABLE_IOS",
+    "named": false
+  },
+  {
+    "type": "NS_CLASS_DEPRECATED_IOS",
+    "named": false
+  },
+  {
+    "type": "NS_DEPRECATED_IOS",
+    "named": false
+  },
+  {
+    "type": "NS_ENUM_AVAILABLE_IOS",
+    "named": false
+  },
+  {
+    "type": "NS_ENUM_DEPRECATED_IOS",
+    "named": false
+  },
+  {
+    "type": "NS_EXTENSION_UNAVAILABLE_IOS",
+    "named": false
+  },
+  {
+    "type": "NS_FORMAT_FUNCTION",
+    "named": false
+  },
+  {
+    "type": "NS_REQUIRES_NIL_TERMINATION",
+    "named": false
+  },
+  {
+    "type": "NS_ROOT_CLASS",
+    "named": false
+  },
+  {
+    "type": "NS_SWIFT_NAME",
+    "named": false
+  },
+  {
+    "type": "NS_SWIFT_UNAVAILABLE",
+    "named": false
+  },
+  {
+    "type": "NS_UNAVAILABLE",
+    "named": false
+  },
+  {
     "type": "NULL",
     "named": false
   },
@@ -7363,11 +9047,23 @@
     "named": false
   },
   {
+    "type": "SEL",
+    "named": false
+  },
+  {
     "type": "U\"",
     "named": false
   },
   {
     "type": "U'",
+    "named": false
+  },
+  {
+    "type": "UI_APPEARANCE_SELECTOR",
+    "named": false
+  },
+  {
+    "type": "UNAVAILABLE_ATTRIBUTE",
     "named": false
   },
   {
@@ -7427,6 +9123,14 @@
     "named": false
   },
   {
+    "type": "__IOS_AVAILABLE",
+    "named": false
+  },
+  {
+    "type": "__OSX_AVAILABLE_STARTING",
+    "named": false
+  },
+  {
     "type": "__alignof",
     "named": false
   },
@@ -7463,7 +9167,23 @@
     "named": false
   },
   {
+    "type": "__contravariant",
+    "named": false
+  },
+  {
+    "type": "__covariant",
+    "named": false
+  },
+  {
     "type": "__declspec",
+    "named": false
+  },
+  {
+    "type": "__deprecated_enum_msg",
+    "named": false
+  },
+  {
+    "type": "__deprecated_msg",
     "named": false
   },
   {
@@ -7516,6 +9236,14 @@
   },
   {
     "type": "__try",
+    "named": false
+  },
+  {
+    "type": "__typeof",
+    "named": false
+  },
+  {
+    "type": "__typeof__",
     "named": false
   },
   {
@@ -7572,6 +9300,14 @@
   },
   {
     "type": "break",
+    "named": false
+  },
+  {
+    "type": "bycopy",
+    "named": false
+  },
+  {
+    "type": "byref",
     "named": false
   },
   {
@@ -7700,6 +9436,10 @@
     "named": false
   },
   {
+    "type": "id",
+    "named": false
+  },
+  {
     "type": "identifier",
     "named": true
   },
@@ -7708,7 +9448,19 @@
     "named": false
   },
   {
+    "type": "in",
+    "named": false
+  },
+  {
     "type": "inline",
+    "named": false
+  },
+  {
+    "type": "inout",
+    "named": false
+  },
+  {
+    "type": "ios",
     "named": false
   },
   {
@@ -7717,6 +9469,14 @@
   },
   {
     "type": "long",
+    "named": false
+  },
+  {
+    "type": "macos",
+    "named": false
+  },
+  {
+    "type": "macosx",
     "named": false
   },
   {
@@ -7776,6 +9536,10 @@
     "named": false
   },
   {
+    "type": "oneway",
+    "named": false
+  },
+  {
     "type": "operator",
     "named": false
   },
@@ -7785,6 +9549,10 @@
   },
   {
     "type": "or_eq",
+    "named": false
+  },
+  {
+    "type": "out",
     "named": false
   },
   {
@@ -7904,6 +9672,10 @@
     "named": false
   },
   {
+    "type": "tvos",
+    "named": false
+  },
+  {
     "type": "type_identifier",
     "named": true
   },
@@ -7913,6 +9685,10 @@
   },
   {
     "type": "typename",
+    "named": false
+  },
+  {
+    "type": "typeof",
     "named": false
   },
   {
@@ -7952,11 +9728,19 @@
     "named": false
   },
   {
+    "type": "version_number",
+    "named": true
+  },
+  {
     "type": "virtual",
     "named": false
   },
   {
     "type": "volatile",
+    "named": false
+  },
+  {
+    "type": "watchos",
     "named": false
   },
   {

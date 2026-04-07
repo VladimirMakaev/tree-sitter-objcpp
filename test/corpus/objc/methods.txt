@@ -1,0 +1,95 @@
+================================================================================
+Simple instance method declaration
+================================================================================
+
+@interface Foo
+- (void)doSomething;
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_interface
+    (identifier)
+    (method_declaration
+      (method_type
+        (type_name
+          (primitive_type)))
+      (identifier))))
+
+================================================================================
+Class method declaration
+================================================================================
+
+@interface Foo
++ (instancetype)sharedInstance;
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_interface
+    (identifier)
+    (method_declaration
+      (method_type
+        (type_name
+          (type_identifier)))
+      (identifier))))
+
+================================================================================
+Method with keyword arguments
+================================================================================
+
+@interface Foo
+- (void)setWidth:(int)width height:(int)height;
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_interface
+    (identifier)
+    (method_declaration
+      (method_type
+        (type_name
+          (primitive_type)))
+      (identifier)
+      (method_parameter
+        (method_type
+          (type_name
+            (primitive_type)))
+        (identifier))
+      (identifier)
+      (method_parameter
+        (method_type
+          (type_name
+            (primitive_type)))
+        (identifier)))))
+
+================================================================================
+Simple method definition
+================================================================================
+
+@implementation Foo
+- (void)doSomething {
+  int x = 1;
+}
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_implementation
+    (identifier)
+    (implementation_definition
+      (method_definition
+        (method_type
+          (type_name
+            (primitive_type)))
+        (identifier)
+        (compound_statement
+          (declaration
+            type: (primitive_type)
+            declarator: (init_declarator
+              declarator: (identifier)
+              value: (number_literal))))))))

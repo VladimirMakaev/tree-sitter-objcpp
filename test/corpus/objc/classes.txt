@@ -1,0 +1,178 @@
+================================================================================
+Empty interface
+================================================================================
+
+@interface Foo
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_interface
+    (identifier)
+    ))
+
+================================================================================
+Interface with superclass
+================================================================================
+
+@interface Foo : NSObject
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_interface
+    (identifier)
+    superclass: (identifier)
+    ))
+
+================================================================================
+Interface with category
+================================================================================
+
+@interface Foo (MyCategory)
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_interface
+    (identifier)
+    category: (identifier)
+    ))
+
+================================================================================
+Interface extension (empty category)
+================================================================================
+
+@interface Foo ()
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_interface
+    (identifier)
+    ))
+
+================================================================================
+Interface with superclass and protocol conformance
+================================================================================
+
+@interface Foo : NSObject <NSCoding, NSCopying>
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_interface
+    (identifier)
+    superclass: (identifier)
+    (parameterized_arguments
+      (type_name
+        (type_identifier))
+      (type_name
+        (type_identifier)))
+    ))
+
+================================================================================
+Forward class declaration
+================================================================================
+
+@class Foo;
+@class Bar, Baz;
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_forward_declaration
+    (identifier))
+  (class_forward_declaration
+    (identifier)
+    (identifier)))
+
+================================================================================
+Implementation
+================================================================================
+
+@implementation Foo
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_implementation
+    (identifier)))
+
+================================================================================
+Implementation with superclass
+================================================================================
+
+@implementation Foo : NSObject
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_implementation
+    (identifier)
+    superclass: (identifier)))
+
+================================================================================
+Implementation with category
+================================================================================
+
+@implementation Foo (MyCategory)
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_implementation
+    (identifier)
+    category: (identifier)))
+
+================================================================================
+Instance variables with visibility
+================================================================================
+
+@interface Foo : NSObject {
+  @public
+  int x;
+  @private
+  int y;
+  @protected
+  int z;
+}
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_interface
+    (identifier)
+    superclass: (identifier)
+    (instance_variables
+      (instance_variable
+        (visibility_specification))
+      (instance_variable
+        (struct_declaration
+          (primitive_type)
+          (struct_declarator
+            (identifier))))
+      (instance_variable
+        (visibility_specification))
+      (instance_variable
+        (struct_declaration
+          (primitive_type)
+          (struct_declarator
+            (identifier))))
+      (instance_variable
+        (visibility_specification))
+      (instance_variable
+        (struct_declaration
+          (primitive_type)
+          (struct_declarator
+            (identifier)))))
+    ))

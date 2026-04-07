@@ -1,0 +1,81 @@
+================================================================================
+Simple property declaration
+================================================================================
+
+@interface Foo
+@property int value;
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_interface
+    (identifier)
+    (property_declaration
+      (struct_declaration
+        (primitive_type)
+        (struct_declarator
+          (identifier))))))
+
+================================================================================
+Property with attributes
+================================================================================
+
+@interface Foo
+@property (nonatomic, strong) NSString *name;
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_interface
+    (identifier)
+    (property_declaration
+      (property_attributes_declaration
+        (property_attribute
+          (identifier))
+        (property_attribute
+          (identifier)))
+      (struct_declaration
+        (type_identifier)
+        (struct_declarator
+          (pointer_declarator
+            declarator: (identifier)))))))
+
+================================================================================
+Property synthesize and dynamic
+================================================================================
+
+@implementation Foo
+@synthesize name = _name;
+@dynamic value;
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_implementation
+    (identifier)
+    (implementation_definition
+      (property_implementation
+        (identifier)
+        (identifier)))
+    (implementation_definition
+      (property_implementation
+        (identifier)))))
+
+================================================================================
+Module import
+================================================================================
+
+@import Foundation;
+@import UIKit.UIView;
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (module_import
+    path: (identifier))
+  (module_import
+    path: (identifier)
+    path: (identifier)))

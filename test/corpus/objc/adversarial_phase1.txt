@@ -1,0 +1,259 @@
+================================================================================
+Empty protocol body
+================================================================================
+
+@protocol EmptyProto
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (protocol_declaration
+    (identifier)))
+
+================================================================================
+Empty instance variables block
+================================================================================
+
+@interface Foo {
+}
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_interface
+    (identifier)
+    (instance_variables)))
+
+================================================================================
+Preprocessor inside interface
+================================================================================
+
+@interface Configured
+#ifdef DEBUG
+- (void)debugMethod;
+#endif
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_interface
+    (identifier)
+    (preproc_ifdef
+      name: (identifier)
+      (method_declaration
+        (method_type
+          (type_name
+            (primitive_type)))
+        (identifier)))))
+
+================================================================================
+Multiple interfaces in sequence
+================================================================================
+
+@interface Alpha
+@end
+
+@interface Beta
+@end
+
+@interface Gamma
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_interface
+    (identifier))
+  (class_interface
+    (identifier))
+  (class_interface
+    (identifier)))
+
+================================================================================
+Protocol forward then full declaration
+================================================================================
+
+@protocol Drawable;
+
+@protocol Drawable
+- (void)draw;
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (protocol_forward_declaration
+    (identifier))
+  (protocol_declaration
+    (identifier)
+    (method_declaration
+      (method_type
+        (type_name
+          (primitive_type)))
+      (identifier))))
+
+================================================================================
+Compatibility alias
+================================================================================
+
+@compatibility_alias NewName OldName;
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (compatibility_alias_declaration
+    class: (identifier)
+    alias: (identifier)))
+
+================================================================================
+Category interface and implementation
+================================================================================
+
+@interface NSString (Utilities)
+- (void)isBlank;
+@end
+
+@implementation NSString (Utilities)
+- (void)isBlank {
+    return;
+}
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_interface
+    (identifier)
+    category: (identifier)
+    (method_declaration
+      (method_type
+        (type_name
+          (primitive_type)))
+      (identifier)))
+  (class_implementation
+    (identifier)
+    category: (identifier)
+    (implementation_definition
+      (method_definition
+        (method_type
+          (type_name
+            (primitive_type)))
+        (identifier)
+        (compound_statement
+          (return_statement))))))
+
+================================================================================
+Implementation with private instance variables
+================================================================================
+
+@implementation SecretKeeper {
+    int _count;
+}
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_implementation
+    (identifier)
+    (instance_variables
+      (instance_variable
+        (struct_declaration
+          (primitive_type)
+          (struct_declarator
+            (identifier)))))))
+
+================================================================================
+Multiple synthesize and dynamic
+================================================================================
+
+@implementation Thing
+@synthesize foo = _foo, bar;
+@dynamic baz;
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_implementation
+    (identifier)
+    (implementation_definition
+      (property_implementation
+        (identifier)
+        (identifier)
+        (identifier)))
+    (implementation_definition
+      (property_implementation
+        (identifier)))))
+
+================================================================================
+Property with getter and setter
+================================================================================
+
+@interface Account
+@property (nonatomic, getter=isActive, setter=setActive:) int active;
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_interface
+    (identifier)
+    (property_declaration
+      (property_attributes_declaration
+        (property_attribute
+          (identifier))
+        (property_attribute
+          (identifier)
+          (identifier))
+        (property_attribute
+          (identifier)
+          (identifier)))
+      (struct_declaration
+        (primitive_type)
+        (struct_declarator
+          (identifier))))))
+
+================================================================================
+Class method and instance method in same interface
+================================================================================
+
+@interface Factory
++ (instancetype)sharedInstance;
+- (void)reset;
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_interface
+    (identifier)
+    (method_declaration
+      (method_type
+        (type_name
+          (type_identifier)))
+      (identifier))
+    (method_declaration
+      (method_type
+        (type_name
+          (primitive_type)))
+      (identifier))))
+
+================================================================================
+Hash import directive
+================================================================================
+
+#import <Foundation/Foundation.h>
+#import "MyHeader.h"
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (preproc_include
+    path: (system_lib_string))
+  (preproc_include
+    path: (string_literal
+      (string_content))))

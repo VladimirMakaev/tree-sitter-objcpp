@@ -1,0 +1,78 @@
+================================================================================
+Protocol declaration
+================================================================================
+
+@protocol MyProtocol
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (protocol_declaration
+    (identifier)))
+
+================================================================================
+Protocol with protocol references
+================================================================================
+
+@protocol MyProtocol <NSCoding>
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (protocol_declaration
+    (identifier)
+    (protocol_reference_list
+      (identifier))))
+
+================================================================================
+Protocol forward declaration
+================================================================================
+
+@protocol Foo;
+@protocol Bar, Baz;
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (protocol_forward_declaration
+    (identifier))
+  (protocol_forward_declaration
+    (identifier)
+    (identifier)))
+
+================================================================================
+Protocol with optional and required sections
+================================================================================
+
+@protocol MyProtocol
+- (void)requiredMethod;
+@optional
+- (void)optionalMethod;
+@required
+- (void)anotherRequiredMethod;
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (protocol_declaration
+    (identifier)
+    (method_declaration
+      (method_type
+        (type_name
+          (primitive_type)))
+      (identifier))
+    (qualified_protocol_interface_declaration
+      (method_declaration
+        (method_type
+          (type_name
+            (primitive_type)))
+        (identifier)))
+    (qualified_protocol_interface_declaration
+      (method_declaration
+        (method_type
+          (type_name
+            (primitive_type)))
+        (identifier)))))
