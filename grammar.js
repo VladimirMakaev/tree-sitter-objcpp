@@ -39,6 +39,7 @@ module.exports = grammar(CPP, {
     [$._function_attributes_start, $._function_attributes_end],
     [$.expression, $._class_name],
     [$.template_type, $.template_method],
+    [$.string_literal],
   ]),
 
   inline: ($, original) => original.concat([
@@ -550,6 +551,104 @@ module.exports = grammar(CPP, {
 
     ...preprocIf('_in_implementation_definition', $ => $.implementation_definition),
     ...preprocIf('_in_interface_declaration', $ => $.interface_declaration),
+
+    // --- ObjC Expressions ---
+
+    _expression_not_binary: ($, original) => choice(
+      original,
+      $.message_expression,
+      $.selector_expression,
+      $.available_expression,
+      $.block_literal,
+      $.dictionary_literal,
+      $.array_literal,
+      $.at_expression,
+      $.encode_expression,
+      $.va_arg_expression,
+      $.keyword_identifier,
+    ),
+
+    message_expression: $ => prec(PREC.CALL, seq(
+      '[',
+      field('receiver', choice($.expression, $.generic_specifier)),
+      repeat1(seq(
+        field('method', $.identifier),
+        repeat(seq(
+          ':',
+          commaSep1($.expression),
+        )),
+      )),
+      ']',
+    )),
+
+    selector_expression: $ => prec.left(seq(
+      '@selector',
+      repeat1('('),
+      choice($.identifier, $.method_identifier, prec(-1, /[^)]*/)),
+      repeat1(')'),
+    )),
+
+    available_expression: $ => seq(
+      choice('@available', '__builtin_available'),
+      '(',
+      commaSep1(choice(
+        $.identifier,
+        seq($.identifier, $.version),
+        '*',
+      )),
+      ')',
+    ),
+
+    block_literal: $ => seq(
+      '^',
+      optional($.attribute_specifier),
+      optional($.type_name),
+      optional($.attribute_specifier),
+      optional($.parameter_list),
+      optional($.attribute_specifier),
+      $.compound_statement,
+    ),
+
+    at_expression: $ => prec.right(seq(
+      '@',
+      $.expression,
+    )),
+
+    dictionary_literal: $ => seq(
+      '@',
+      '{',
+      optional(seq(
+        commaSep1($.dictionary_pair),
+        optional(','),
+      )),
+      '}',
+    ),
+
+    dictionary_pair: $ => seq($.expression, ':', $.expression),
+
+    array_literal: $ => seq(
+      '@',
+      '[',
+      optional(seq(
+        commaSep1($.expression),
+        optional(','),
+      )),
+      ']',
+    ),
+
+    encode_expression: $ => seq('@encode', '(', $.type_name, ')'),
+
+    va_arg_expression: $ => seq('va_arg', '(', $.expression, ',', $.type_descriptor, ')'),
+
+    // Override string_literal to support @"string"
+    string_literal: $ => seq(
+      choice(seq('@', '"'), 'L"', 'u"', 'U"', 'u8"', '"'),
+      repeat(choice(
+        alias(token.immediate(prec(1, /[^\\"\n]+/)), $.string_content),
+        $.escape_sequence,
+      )),
+      '"',
+    ),
 
     preproc_include: $ => seq(
       field('directive', choice(preprocessor('include'), preprocessor('import'))),

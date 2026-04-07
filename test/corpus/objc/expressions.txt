@@ -1,0 +1,287 @@
+================================================================================
+Simple message send
+================================================================================
+
+void f() { [obj method]; }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (expression_statement
+        (message_expression
+          receiver: (identifier)
+          method: (identifier))))))
+
+================================================================================
+Message send with keyword arguments
+================================================================================
+
+void f() { [obj method:arg1 other:arg2]; }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (expression_statement
+        (message_expression
+          receiver: (identifier)
+          method: (identifier)
+          (identifier)
+          method: (identifier)
+          (identifier))))))
+
+================================================================================
+ObjC string literal
+================================================================================
+
+void f() { NSString *s = @"hello"; }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (declaration
+        type: (type_identifier)
+        declarator: (init_declarator
+          declarator: (pointer_declarator
+            declarator: (identifier))
+          value: (string_literal
+            (string_content)))))))
+
+================================================================================
+ObjC number literal (boxed expression)
+================================================================================
+
+void f() { NSNumber *n = @42; }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (declaration
+        type: (type_identifier)
+        declarator: (init_declarator
+          declarator: (pointer_declarator
+            declarator: (identifier))
+          value: (at_expression
+            (number_literal)))))))
+
+================================================================================
+Array literal
+================================================================================
+
+void f() { NSArray *a = @[@1, @2]; }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (declaration
+        type: (type_identifier)
+        declarator: (init_declarator
+          declarator: (pointer_declarator
+            declarator: (identifier))
+          value: (array_literal
+            (at_expression
+              (number_literal))
+            (at_expression
+              (number_literal))))))))
+
+================================================================================
+Dictionary literal
+================================================================================
+
+void f() { NSDictionary *d = @{@"a": @1}; }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (declaration
+        type: (type_identifier)
+        declarator: (init_declarator
+          declarator: (pointer_declarator
+            declarator: (identifier))
+          value: (dictionary_literal
+            (dictionary_pair
+              (string_literal
+                (string_content))
+              (at_expression
+                (number_literal)))))))))
+
+================================================================================
+Boxed expression
+================================================================================
+
+void f() { NSNumber *b = @(1 + 2); }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (declaration
+        type: (type_identifier)
+        declarator: (init_declarator
+          declarator: (pointer_declarator
+            declarator: (identifier))
+          value: (at_expression
+            (parenthesized_expression
+              (binary_expression
+                left: (number_literal)
+                right: (number_literal)))))))))
+
+================================================================================
+Selector expression
+================================================================================
+
+void f() { SEL sel = @selector(doSomething:); }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (declaration
+        type: (typedefed_specifier)
+        declarator: (init_declarator
+          declarator: (identifier)
+          value: (selector_expression))))))
+
+================================================================================
+Encode expression
+================================================================================
+
+void f() { const char *enc = @encode(int); }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (declaration
+        (type_qualifier)
+        type: (primitive_type)
+        declarator: (init_declarator
+          declarator: (pointer_declarator
+            declarator: (identifier))
+          value: (encode_expression
+            (type_name
+              (primitive_type))))))))
+
+================================================================================
+Block literal
+================================================================================
+
+void f() { id b = ^{ return; }; }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (declaration
+        type: (typedefed_specifier)
+        declarator: (init_declarator
+          declarator: (identifier)
+          value: (block_literal
+            (compound_statement
+              (return_statement))))))))
+
+================================================================================
+Block literal with parameters
+================================================================================
+
+void f() { id b = ^(int x){ return x; }; }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (declaration
+        type: (typedefed_specifier)
+        declarator: (init_declarator
+          declarator: (identifier)
+          value: (block_literal
+            (parameter_list
+              (parameter_declaration
+                type: (primitive_type)
+                declarator: (identifier)))
+            (compound_statement
+              (return_statement
+                (identifier)))))))))
+
+================================================================================
+Available expression
+================================================================================
+
+void f() { if (@available(iOS 13.0, *)) {} }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (if_statement
+        condition: (condition_clause
+          value: (available_expression
+            (identifier)
+            (version
+              (version_number))))
+        consequence: (compound_statement)))))
