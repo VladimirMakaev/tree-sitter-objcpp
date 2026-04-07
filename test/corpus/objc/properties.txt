@@ -11,11 +11,12 @@ Simple property declaration
 (translation_unit
   (class_interface
     (identifier)
-    (property_declaration
-      (struct_declaration
-        (primitive_type)
-        (struct_declarator
-          (identifier))))))
+    (interface_declaration
+      (property_declaration
+        (struct_declaration
+          (primitive_type)
+          (struct_declarator
+            (identifier)))))))
 
 ================================================================================
 Property with attributes
@@ -30,17 +31,18 @@ Property with attributes
 (translation_unit
   (class_interface
     (identifier)
-    (property_declaration
-      (property_attributes_declaration
-        (property_attribute
-          (identifier))
-        (property_attribute
-          (identifier)))
-      (struct_declaration
-        (type_identifier)
-        (struct_declarator
-          (pointer_declarator
-            declarator: (identifier)))))))
+    (interface_declaration
+      (property_declaration
+        (property_attributes_declaration
+          (property_attribute
+            (identifier))
+          (property_attribute
+            (identifier)))
+        (struct_declaration
+          (type_identifier)
+          (struct_declarator
+            (pointer_declarator
+              declarator: (identifier))))))))
 
 ================================================================================
 Property synthesize and dynamic

@@ -11,17 +11,18 @@ ObjC method returning C++ template type
 (translation_unit
   (class_interface
     (identifier)
-    (method_declaration
-      (method_type
-        (type_name
-          (qualified_identifier
-            scope: (namespace_identifier)
-            name: (template_function
-              name: (identifier)
-              arguments: (template_argument_list
-                (type_descriptor
-                  type: (primitive_type)))))))
-      (identifier))))
+    (interface_declaration
+      (method_declaration
+        (method_type
+          (type_name
+            (qualified_identifier
+              scope: (namespace_identifier)
+              name: (template_function
+                name: (identifier)
+                arguments: (template_argument_list
+                  (type_descriptor
+                    type: (primitive_type)))))))
+        (identifier)))))
 
 ================================================================================
 Typedef with block pointer
@@ -56,13 +57,14 @@ Property with C++ type
 (translation_unit
   (class_interface
     (identifier)
-    (property_declaration
-      (struct_declaration
-        (qualified_identifier
-          scope: (namespace_identifier)
-          name: (type_identifier))
-        (struct_declarator
-          (identifier))))))
+    (interface_declaration
+      (property_declaration
+        (struct_declaration
+          (qualified_identifier
+            scope: (namespace_identifier)
+            name: (type_identifier))
+          (struct_declarator
+            (identifier)))))))
 
 ================================================================================
 C++ enum class

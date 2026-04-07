@@ -32,17 +32,18 @@ C++ template as ObjC method return type
 (translation_unit
   (class_interface
     (identifier)
-    (method_declaration
-      (method_type
-        (type_name
-          (qualified_identifier
-            scope: (namespace_identifier)
-            name: (template_function
-              name: (identifier)
-              arguments: (template_argument_list
-                (type_descriptor
-                  type: (primitive_type)))))))
-      (identifier))))
+    (interface_declaration
+      (method_declaration
+        (method_type
+          (type_name
+            (qualified_identifier
+              scope: (namespace_identifier)
+              name: (template_function
+                name: (identifier)
+                arguments: (template_argument_list
+                  (type_descriptor
+                    type: (primitive_type)))))))
+        (identifier)))))
 
 ================================================================================
 ObjC block as C++ function argument
@@ -143,11 +144,12 @@ ObjC property with C++ type
 (translation_unit
   (class_interface
     (identifier)
-    (property_declaration
-      (struct_declaration
-        (primitive_type)
-        (struct_declarator
-          (identifier))))))
+    (interface_declaration
+      (property_declaration
+        (struct_declaration
+          (primitive_type)
+          (struct_declarator
+            (identifier)))))))
 
 ================================================================================
 C++ static_assert in ObjC context

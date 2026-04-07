@@ -41,13 +41,15 @@ Preprocessor inside interface
 (translation_unit
   (class_interface
     (identifier)
-    (preproc_ifdef
-      name: (identifier)
-      (method_declaration
-        (method_type
-          (type_name
-            (primitive_type)))
-        (identifier)))))
+    (interface_declaration
+      (preproc_ifdef
+        name: (identifier)
+        (interface_declaration
+          (method_declaration
+            (method_type
+              (type_name
+                (primitive_type)))
+            (identifier)))))))
 
 ================================================================================
 Multiple interfaces in sequence
@@ -89,11 +91,12 @@ Protocol forward then full declaration
     (identifier))
   (protocol_declaration
     (identifier)
-    (method_declaration
-      (method_type
-        (type_name
-          (primitive_type)))
-      (identifier))))
+    (interface_declaration
+      (method_declaration
+        (method_type
+          (type_name
+            (primitive_type)))
+        (identifier)))))
 
 ================================================================================
 Compatibility alias
@@ -128,11 +131,12 @@ Category interface and implementation
   (class_interface
     (identifier)
     category: (identifier)
-    (method_declaration
-      (method_type
-        (type_name
-          (primitive_type)))
-      (identifier)))
+    (interface_declaration
+      (method_declaration
+        (method_type
+          (type_name
+            (primitive_type)))
+        (identifier))))
   (class_implementation
     (identifier)
     category: (identifier)
@@ -202,20 +206,21 @@ Property with getter and setter
 (translation_unit
   (class_interface
     (identifier)
-    (property_declaration
-      (property_attributes_declaration
-        (property_attribute
-          (identifier))
-        (property_attribute
-          (identifier)
-          (identifier))
-        (property_attribute
-          (identifier)
-          (identifier)))
-      (struct_declaration
-        (primitive_type)
-        (struct_declarator
-          (identifier))))))
+    (interface_declaration
+      (property_declaration
+        (property_attributes_declaration
+          (property_attribute
+            (identifier))
+          (property_attribute
+            (identifier)
+            (identifier))
+          (property_attribute
+            (identifier)
+            (identifier)))
+        (struct_declaration
+          (primitive_type)
+          (struct_declarator
+            (identifier)))))))
 
 ================================================================================
 Class method and instance method in same interface
@@ -231,16 +236,18 @@ Class method and instance method in same interface
 (translation_unit
   (class_interface
     (identifier)
-    (method_declaration
-      (method_type
-        (type_name
-          (type_identifier)))
-      (identifier))
-    (method_declaration
-      (method_type
-        (type_name
-          (primitive_type)))
-      (identifier))))
+    (interface_declaration
+      (method_declaration
+        (method_type
+          (type_name
+            (type_identifier)))
+        (identifier)))
+    (interface_declaration
+      (method_declaration
+        (method_type
+          (type_name
+            (primitive_type)))
+        (identifier)))))
 
 ================================================================================
 Hash import directive

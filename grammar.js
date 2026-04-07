@@ -21,19 +21,16 @@ module.exports = grammar(CPP, {
 
   externals: ($, original) => original.concat([$._attr_open]),
 
-  conflicts: ($, original) => original.concat([
+  conflicts: ($, original) => original.filter(
+    c => !(c.length === 2 && c[0].name === 'type_qualifier' && c[1].name === 'extension_expression')
+  ).concat([
     [$.parameterized_arguments],
     [$._declarator, $.type_specifier, $.sized_type_specifier],
-    [$._declarator, $.type_specifier, $.template_type, $.template_function, $.generic_specifier],
-    [$.template_function, $.template_type, $.expression, $.generic_specifier],
-    [$._declarator, $.type_specifier, $.expression, $.template_type, $.template_function, $.generic_specifier],
-    [$._declarator, $.expression, $.template_type, $.template_function],
+    [$._declarator, $.type_specifier, $.template_type, $.template_function],
     [$._declaration_specifiers, $._constructor_specifiers, $._class_interface_header, $._class_implementation_header, $.protocol_declaration, $.protocol_forward_declaration],
-    [$.type_descriptor, $.specifier_qualifier],
     [$._declaration_modifiers, $.property_declaration],
     [$._declaration_modifiers, $.specifier_qualifier],
     [$._declaration_specifiers, $.specifier_qualifier],
-    [$.destructor_name, $._scope_resolution],
     [$._declarator, $.template_type, $.template_function],
     [$.template_type, $.template_function, $.qualified_identifier, $.qualified_type_identifier],
     [$.keyword_declarator, $.method_parameter],
@@ -43,14 +40,12 @@ module.exports = grammar(CPP, {
     [$.template_type, $.template_method],
     [$.string_literal],
     [$.specifier_qualifier, $.block_pointer_declarator],
-    [$.type_name, $.block_pointer_declarator],
   ]),
 
   inline: ($, original) => original.concat([
     $.method_selector,
     $.method_selector_no_list,
     $.keyword_selector,
-    $.interface_declaration,
     $.typedefed_identifier,
     $.keyword_identifier,
   ]),
@@ -407,7 +402,6 @@ module.exports = grammar(CPP, {
     type_specifier: ($, original) => choice(
       original,
       $.typedefed_specifier,
-      $.generic_specifier,
       $.typeof_specifier,
     ),
 
@@ -417,15 +411,6 @@ module.exports = grammar(CPP, {
       choice($.expression, $.type_descriptor),
       ')',
     ),
-
-    generic_specifier: $ => prec.right(seq(
-      $._type_identifier,
-      repeat1(seq(
-        '<',
-        commaSep1($.type_name),
-        '>',
-      )),
-    )),
 
     // --- Struct declarations (used in properties and ivars) ---
 
@@ -745,7 +730,7 @@ module.exports = grammar(CPP, {
 
     message_expression: $ => prec(PREC.CALL, seq(
       '[',
-      field('receiver', choice($.expression, $.generic_specifier)),
+      field('receiver', $.expression),
       repeat1(seq(
         field('method', $.identifier),
         repeat(seq(

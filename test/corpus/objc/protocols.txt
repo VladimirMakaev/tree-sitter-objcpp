@@ -59,20 +59,23 @@ Protocol with optional and required sections
 (translation_unit
   (protocol_declaration
     (identifier)
-    (method_declaration
-      (method_type
-        (type_name
-          (primitive_type)))
-      (identifier))
-    (qualified_protocol_interface_declaration
+    (interface_declaration
       (method_declaration
         (method_type
           (type_name
             (primitive_type)))
         (identifier)))
     (qualified_protocol_interface_declaration
-      (method_declaration
-        (method_type
-          (type_name
-            (primitive_type)))
-        (identifier)))))
+      (interface_declaration
+        (method_declaration
+          (method_type
+            (type_name
+              (primitive_type)))
+          (identifier))))
+    (qualified_protocol_interface_declaration
+      (interface_declaration
+        (method_declaration
+          (method_type
+            (type_name
+              (primitive_type)))
+          (identifier))))))

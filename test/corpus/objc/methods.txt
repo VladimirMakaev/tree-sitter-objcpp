@@ -11,11 +11,12 @@ Simple instance method declaration
 (translation_unit
   (class_interface
     (identifier)
-    (method_declaration
-      (method_type
-        (type_name
-          (primitive_type)))
-      (identifier))))
+    (interface_declaration
+      (method_declaration
+        (method_type
+          (type_name
+            (primitive_type)))
+        (identifier)))))
 
 ================================================================================
 Class method declaration
@@ -30,11 +31,12 @@ Class method declaration
 (translation_unit
   (class_interface
     (identifier)
-    (method_declaration
-      (method_type
-        (type_name
-          (type_identifier)))
-      (identifier))))
+    (interface_declaration
+      (method_declaration
+        (method_type
+          (type_name
+            (type_identifier)))
+        (identifier)))))
 
 ================================================================================
 Method with keyword arguments
@@ -49,22 +51,23 @@ Method with keyword arguments
 (translation_unit
   (class_interface
     (identifier)
-    (method_declaration
-      (method_type
-        (type_name
-          (primitive_type)))
-      (identifier)
-      (method_parameter
+    (interface_declaration
+      (method_declaration
         (method_type
           (type_name
             (primitive_type)))
-        (identifier))
-      (identifier)
-      (method_parameter
-        (method_type
-          (type_name
-            (primitive_type)))
-        (identifier)))))
+        (identifier)
+        (method_parameter
+          (method_type
+            (type_name
+              (primitive_type)))
+          (identifier))
+        (identifier)
+        (method_parameter
+          (method_type
+            (type_name
+              (primitive_type)))
+          (identifier))))))
 
 ================================================================================
 Simple method definition

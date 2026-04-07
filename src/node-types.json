@@ -514,10 +514,6 @@
         "named": true
       },
       {
-        "type": "generic_specifier",
-        "named": true
-      },
-      {
         "type": "placeholder_type_specifier",
         "named": true
       },
@@ -1796,10 +1792,6 @@
       "required": true,
       "types": [
         {
-          "type": "alias_declaration",
-          "named": true
-        },
-        {
           "type": "attribute_declaration",
           "named": true
         },
@@ -1809,14 +1801,6 @@
         },
         {
           "type": "availability_attribute_specifier",
-          "named": true
-        },
-        {
-          "type": "declaration",
-          "named": true
-        },
-        {
-          "type": "function_definition",
           "named": true
         },
         {
@@ -1832,7 +1816,7 @@
           "named": true
         },
         {
-          "type": "method_declaration",
+          "type": "interface_declaration",
           "named": true
         },
         {
@@ -1844,51 +1828,11 @@
           "named": true
         },
         {
-          "type": "preproc_call",
-          "named": true
-        },
-        {
-          "type": "preproc_def",
-          "named": true
-        },
-        {
-          "type": "preproc_if",
-          "named": true
-        },
-        {
-          "type": "preproc_ifdef",
-          "named": true
-        },
-        {
-          "type": "property_declaration",
-          "named": true
-        },
-        {
-          "type": "static_assert_declaration",
-          "named": true
-        },
-        {
           "type": "storage_class_specifier",
           "named": true
         },
         {
-          "type": "struct_specifier",
-          "named": true
-        },
-        {
-          "type": "template_declaration",
-          "named": true
-        },
-        {
-          "type": "type_definition",
-          "named": true
-        },
-        {
           "type": "type_qualifier",
-          "named": true
-        },
-        {
-          "type": "using_declaration",
           "named": true
         }
       ]
@@ -4122,25 +4066,6 @@
     }
   },
   {
-    "type": "generic_specifier",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "type_identifier",
-          "named": true
-        },
-        {
-          "type": "type_name",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "gnu_asm_clobber_list",
     "named": true,
     "fields": {
@@ -4667,6 +4592,73 @@
     }
   },
   {
+    "type": "interface_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "alias_declaration",
+          "named": true
+        },
+        {
+          "type": "declaration",
+          "named": true
+        },
+        {
+          "type": "function_definition",
+          "named": true
+        },
+        {
+          "type": "method_declaration",
+          "named": true
+        },
+        {
+          "type": "preproc_call",
+          "named": true
+        },
+        {
+          "type": "preproc_def",
+          "named": true
+        },
+        {
+          "type": "preproc_if",
+          "named": true
+        },
+        {
+          "type": "preproc_ifdef",
+          "named": true
+        },
+        {
+          "type": "property_declaration",
+          "named": true
+        },
+        {
+          "type": "static_assert_declaration",
+          "named": true
+        },
+        {
+          "type": "struct_specifier",
+          "named": true
+        },
+        {
+          "type": "template_declaration",
+          "named": true
+        },
+        {
+          "type": "type_definition",
+          "named": true
+        },
+        {
+          "type": "using_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "keyword_declarator",
     "named": true,
     "fields": {},
@@ -4917,10 +4909,6 @@
         "types": [
           {
             "type": "expression",
-            "named": true
-          },
-          {
-            "type": "generic_specifier",
             "named": true
           }
         ]
@@ -6192,11 +6180,11 @@
           "named": true
         },
         {
-          "type": "linkage_specification",
+          "type": "interface_declaration",
           "named": true
         },
         {
-          "type": "method_declaration",
+          "type": "linkage_specification",
           "named": true
         },
         {
@@ -6233,10 +6221,6 @@
         },
         {
           "type": "preproc_include",
-          "named": true
-        },
-        {
-          "type": "property_declaration",
           "named": true
         },
         {
@@ -6503,11 +6487,11 @@
           "named": true
         },
         {
-          "type": "linkage_specification",
+          "type": "interface_declaration",
           "named": true
         },
         {
-          "type": "method_declaration",
+          "type": "linkage_specification",
           "named": true
         },
         {
@@ -6544,10 +6528,6 @@
         },
         {
           "type": "preproc_include",
-          "named": true
-        },
-        {
-          "type": "property_declaration",
           "named": true
         },
         {
@@ -6743,11 +6723,11 @@
           "named": true
         },
         {
-          "type": "linkage_specification",
+          "type": "interface_declaration",
           "named": true
         },
         {
-          "type": "method_declaration",
+          "type": "linkage_specification",
           "named": true
         },
         {
@@ -6784,10 +6764,6 @@
         },
         {
           "type": "preproc_include",
-          "named": true
-        },
-        {
-          "type": "property_declaration",
           "named": true
         },
         {
@@ -6919,11 +6895,11 @@
           "named": true
         },
         {
-          "type": "linkage_specification",
+          "type": "interface_declaration",
           "named": true
         },
         {
-          "type": "method_declaration",
+          "type": "linkage_specification",
           "named": true
         },
         {
@@ -6960,10 +6936,6 @@
         },
         {
           "type": "preproc_include",
-          "named": true
-        },
-        {
-          "type": "property_declaration",
           "named": true
         },
         {
@@ -7163,10 +7135,6 @@
       "required": true,
       "types": [
         {
-          "type": "alias_declaration",
-          "named": true
-        },
-        {
           "type": "attribute_declaration",
           "named": true
         },
@@ -7179,43 +7147,15 @@
           "named": true
         },
         {
-          "type": "declaration",
-          "named": true
-        },
-        {
-          "type": "function_definition",
-          "named": true
-        },
-        {
           "type": "identifier",
           "named": true
         },
         {
-          "type": "method_declaration",
+          "type": "interface_declaration",
           "named": true
         },
         {
           "type": "ms_declspec_modifier",
-          "named": true
-        },
-        {
-          "type": "preproc_call",
-          "named": true
-        },
-        {
-          "type": "preproc_def",
-          "named": true
-        },
-        {
-          "type": "preproc_if",
-          "named": true
-        },
-        {
-          "type": "preproc_ifdef",
-          "named": true
-        },
-        {
-          "type": "property_declaration",
           "named": true
         },
         {
@@ -7227,31 +7167,11 @@
           "named": true
         },
         {
-          "type": "static_assert_declaration",
-          "named": true
-        },
-        {
           "type": "storage_class_specifier",
           "named": true
         },
         {
-          "type": "struct_specifier",
-          "named": true
-        },
-        {
-          "type": "template_declaration",
-          "named": true
-        },
-        {
-          "type": "type_definition",
-          "named": true
-        },
-        {
           "type": "type_qualifier",
-          "named": true
-        },
-        {
-          "type": "using_declaration",
           "named": true
         }
       ]
@@ -7416,59 +7336,7 @@
       "required": false,
       "types": [
         {
-          "type": "alias_declaration",
-          "named": true
-        },
-        {
-          "type": "declaration",
-          "named": true
-        },
-        {
-          "type": "function_definition",
-          "named": true
-        },
-        {
-          "type": "method_declaration",
-          "named": true
-        },
-        {
-          "type": "preproc_call",
-          "named": true
-        },
-        {
-          "type": "preproc_def",
-          "named": true
-        },
-        {
-          "type": "preproc_if",
-          "named": true
-        },
-        {
-          "type": "preproc_ifdef",
-          "named": true
-        },
-        {
-          "type": "property_declaration",
-          "named": true
-        },
-        {
-          "type": "static_assert_declaration",
-          "named": true
-        },
-        {
-          "type": "struct_specifier",
-          "named": true
-        },
-        {
-          "type": "template_declaration",
-          "named": true
-        },
-        {
-          "type": "type_definition",
-          "named": true
-        },
-        {
-          "type": "using_declaration",
+          "type": "interface_declaration",
           "named": true
         }
       ]

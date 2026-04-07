@@ -191,12 +191,13 @@ IBOutlet storage class
 (translation_unit
   (class_interface
     (identifier)
-    (property_declaration
-      (declaration
-        (storage_class_specifier)
-        type: (type_identifier)
-        declarator: (pointer_declarator
-          declarator: (identifier))))))
+    (interface_declaration
+      (property_declaration
+        (declaration
+          (storage_class_specifier)
+          type: (type_identifier)
+          declarator: (pointer_declarator
+            declarator: (identifier)))))))
 
 ================================================================================
 C++ try alongside ObjC try
