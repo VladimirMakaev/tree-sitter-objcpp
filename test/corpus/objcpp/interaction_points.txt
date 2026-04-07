@@ -1,0 +1,268 @@
+================================================================================
+C++ objects as ObjC ivars
+================================================================================
+
+@interface Container {
+    int count;
+}
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_interface
+    (identifier)
+    (instance_variables
+      (instance_variable
+        (struct_declaration
+          (primitive_type)
+          (struct_declarator
+            (identifier)))))))
+
+================================================================================
+C++ template as ObjC method return type
+================================================================================
+
+@interface Foo
+- (std::vector<int>)getItems;
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_interface
+    (identifier)
+    (method_declaration
+      (method_type
+        (type_name
+          (qualified_identifier
+            scope: (namespace_identifier)
+            name: (template_function
+              name: (identifier)
+              arguments: (template_argument_list
+                (type_descriptor
+                  type: (primitive_type)))))))
+      (identifier))))
+
+================================================================================
+ObjC block as C++ function argument
+================================================================================
+
+void takesBlock(void (^)(int));
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (declaration
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list
+        (parameter_declaration
+          type: (primitive_type)
+          declarator: (abstract_function_declarator
+            declarator: (abstract_parenthesized_declarator
+              (abstract_block_pointer_declarator))
+            parameters: (parameter_list
+              (parameter_declaration
+                type: (primitive_type)))))))))
+
+================================================================================
+C++ auto with ObjC type
+================================================================================
+
+void f() { auto obj = [NSObject new]; }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (declaration
+        type: (placeholder_type_specifier
+          (auto))
+        declarator: (init_declarator
+          declarator: (identifier)
+          value: (message_expression
+            receiver: (identifier)
+            method: (identifier)))))))
+
+================================================================================
+@try alongside C++ try in same file
+================================================================================
+
+void f() {
+  try {
+    throw 42;
+  } catch (int e) {}
+  @try {
+    @throw nil;
+  } @catch (...) {}
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (try_statement
+        body: (compound_statement
+          (throw_statement
+            (number_literal)))
+        (catch_clause
+          parameters: (parameter_list
+            (parameter_declaration
+              type: (primitive_type)
+              declarator: (identifier)))
+          body: (compound_statement)))
+      (objc_try_statement
+        (compound_statement
+          (objc_throw_statement
+            (identifier)))
+        (objc_catch_clause
+          (compound_statement))))))
+
+================================================================================
+ObjC property with C++ type
+================================================================================
+
+@interface Settings
+@property int timeout;
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_interface
+    (identifier)
+    (property_declaration
+      (struct_declaration
+        (primitive_type)
+        (struct_declarator
+          (identifier))))))
+
+================================================================================
+C++ static_assert in ObjC context
+================================================================================
+
+@implementation Foo
+static_assert(sizeof(int) == 4, "int must be 4 bytes");
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_implementation
+    (identifier)
+    (implementation_definition
+      (static_assert_declaration
+        condition: (binary_expression
+          left: (sizeof_expression
+            type: (type_descriptor
+              type: (primitive_type)))
+          right: (number_literal))
+        message: (string_literal
+          (string_content))))))
+
+================================================================================
+ObjC @synchronized with C++ object
+================================================================================
+
+void f() { @synchronized(mutex) { int x = 0; } }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (synchronized_statement
+        (identifier)
+        (compound_statement
+          (declaration
+            type: (primitive_type)
+            declarator: (init_declarator
+              declarator: (identifier)
+              value: (number_literal))))))))
+
+================================================================================
+C++ namespace with ObjC types
+================================================================================
+
+namespace utils {
+  void process(id obj) {}
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (namespace_definition
+    name: (namespace_identifier)
+    body: (declaration_list
+      (function_definition
+        type: (primitive_type)
+        declarator: (function_declarator
+          declarator: (identifier)
+          parameters: (parameter_list
+            (parameter_declaration
+              type: (typedefed_specifier)
+              declarator: (identifier))))
+        body: (compound_statement)))))
+
+================================================================================
+Message send inside lambda body
+================================================================================
+
+void f() {
+  auto fn = [](id obj){ [obj method]; };
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (declaration
+        type: (placeholder_type_specifier
+          (auto))
+        declarator: (init_declarator
+          declarator: (identifier)
+          value: (lambda_expression
+            captures: (lambda_capture_specifier)
+            declarator: (abstract_function_declarator
+              parameters: (parameter_list
+                (parameter_declaration
+                  type: (typedefed_specifier)
+                  declarator: (identifier))))
+            body: (compound_statement
+              (expression_statement
+                (message_expression
+                  receiver: (identifier)
+                  method: (identifier))))))))))
+
+================================================================================
+ObjC @import alongside C++ import
+================================================================================
+
+@import Foundation;
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (module_import
+    path: (identifier)))

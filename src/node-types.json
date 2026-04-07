@@ -1796,6 +1796,10 @@
       "required": true,
       "types": [
         {
+          "type": "alias_declaration",
+          "named": true
+        },
+        {
           "type": "attribute_declaration",
           "named": true
         },
@@ -1860,6 +1864,10 @@
           "named": true
         },
         {
+          "type": "static_assert_declaration",
+          "named": true
+        },
+        {
           "type": "storage_class_specifier",
           "named": true
         },
@@ -1868,11 +1876,19 @@
           "named": true
         },
         {
+          "type": "template_declaration",
+          "named": true
+        },
+        {
           "type": "type_definition",
           "named": true
         },
         {
           "type": "type_qualifier",
+          "named": true
+        },
+        {
+          "type": "using_declaration",
           "named": true
         }
       ]
@@ -4408,6 +4424,10 @@
       "required": true,
       "types": [
         {
+          "type": "alias_declaration",
+          "named": true
+        },
+        {
           "type": "declaration",
           "named": true
         },
@@ -4448,11 +4468,23 @@
           "named": true
         },
         {
+          "type": "static_assert_declaration",
+          "named": true
+        },
+        {
           "type": "struct_specifier",
           "named": true
         },
         {
+          "type": "template_declaration",
+          "named": true
+        },
+        {
           "type": "type_definition",
+          "named": true
+        },
+        {
+          "type": "using_declaration",
           "named": true
         }
       ]
@@ -7131,6 +7163,10 @@
       "required": true,
       "types": [
         {
+          "type": "alias_declaration",
+          "named": true
+        },
+        {
           "type": "attribute_declaration",
           "named": true
         },
@@ -7191,6 +7227,10 @@
           "named": true
         },
         {
+          "type": "static_assert_declaration",
+          "named": true
+        },
+        {
           "type": "storage_class_specifier",
           "named": true
         },
@@ -7199,11 +7239,19 @@
           "named": true
         },
         {
+          "type": "template_declaration",
+          "named": true
+        },
+        {
           "type": "type_definition",
           "named": true
         },
         {
           "type": "type_qualifier",
+          "named": true
+        },
+        {
+          "type": "using_declaration",
           "named": true
         }
       ]
@@ -7368,6 +7416,10 @@
       "required": false,
       "types": [
         {
+          "type": "alias_declaration",
+          "named": true
+        },
+        {
           "type": "declaration",
           "named": true
         },
@@ -7400,11 +7452,23 @@
           "named": true
         },
         {
+          "type": "static_assert_declaration",
+          "named": true
+        },
+        {
           "type": "struct_specifier",
           "named": true
         },
         {
+          "type": "template_declaration",
+          "named": true
+        },
+        {
           "type": "type_definition",
+          "named": true
+        },
+        {
+          "type": "using_declaration",
           "named": true
         }
       ]

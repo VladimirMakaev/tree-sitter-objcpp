@@ -18318,6 +18318,22 @@
           "name": "type_definition"
         },
         {
+          "type": "SYMBOL",
+          "name": "static_assert_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "template_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "alias_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "using_declaration"
+        },
+        {
           "type": "ALIAS",
           "content": {
             "type": "SYMBOL",
@@ -18441,6 +18457,22 @@
           {
             "type": "SYMBOL",
             "name": "type_definition"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "static_assert_declaration"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "template_declaration"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "alias_declaration"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "using_declaration"
           },
           {
             "type": "ALIAS",
