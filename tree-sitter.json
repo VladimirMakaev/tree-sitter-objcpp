@@ -1,0 +1,32 @@
+{
+  "grammars": [
+    {
+      "name": "objcpp",
+      "camelCase": "objcpp",
+      "scope": "source.objcpp",
+      "file-types": [
+        "mm",
+        "h"
+      ],
+      "highlights": [
+        "node_modules/tree-sitter-c/queries/highlights.scm",
+        "node_modules/tree-sitter-cpp/queries/highlights.scm",
+        "queries/highlights.scm"
+      ],
+      "injection-regex": "^objcpp$"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "Objective-C++ grammar for tree-sitter"
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true
+  }
+}

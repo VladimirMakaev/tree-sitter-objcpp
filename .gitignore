@@ -1,0 +1,44 @@
+# Rust
+target/
+
+# Node
+build/
+prebuilds/
+node_modules/
+package-lock.json
+
+# Swift
+.build/
+
+# Go
+_obj/
+
+# Python
+.venv/
+dist/
+*.egg-info
+*.egg
+*.whl
+
+# C
+*.a
+*.so
+*.so.*
+*.dylib
+*.dll
+*.o
+*.obj
+
+# Zig
+.zig-cache/
+
+# Wasm
+*.wasm
+
+# Archives
+*.tar.gz
+*.tgz
+*.zip
+
+# Artifacts
+artifacts/

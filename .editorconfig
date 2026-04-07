@@ -1,0 +1,42 @@
+root = true
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+charset = utf-8
+
+[*.{json,toml,yml,yaml,gyp,js,scm}]
+indent_style = space
+indent_size = 2
+
+[*.{c,cc,cpp,h,hh,hpp}]
+indent_style = space
+indent_size = 4
+
+[*.rs]
+indent_style = space
+indent_size = 4
+
+[*.py]
+indent_style = space
+indent_size = 4
+
+[*.swift]
+indent_style = space
+indent_size = 4
+
+[*.go]
+indent_style = tab
+indent_size = 8
+
+[Makefile]
+indent_style = tab
+indent_size = 8
+
+[src/parser.c]
+indent_style = space
+indent_size = 2
+
+[src/tree_sitter/*.h]
+indent_style = space
+indent_size = 2
