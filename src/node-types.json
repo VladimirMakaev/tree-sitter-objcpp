@@ -8,6 +8,10 @@
         "named": true
       },
       {
+        "type": "abstract_block_pointer_declarator",
+        "named": true
+      },
+      {
         "type": "abstract_function_declarator",
         "named": true
       },
@@ -35,6 +39,10 @@
       },
       {
         "type": "attributed_declarator",
+        "named": true
+      },
+      {
+        "type": "block_pointer_declarator",
         "named": true
       },
       {
@@ -92,6 +100,10 @@
         "named": true
       },
       {
+        "type": "block_pointer_declarator",
+        "named": true
+      },
+      {
         "type": "field_identifier",
         "named": true
       },
@@ -131,6 +143,10 @@
       },
       {
         "type": "attributed_declarator",
+        "named": true
+      },
+      {
+        "type": "block_pointer_declarator",
         "named": true
       },
       {
@@ -436,6 +452,14 @@
         "named": true
       },
       {
+        "type": "objc_throw_statement",
+        "named": true
+      },
+      {
+        "type": "objc_try_statement",
+        "named": true
+      },
+      {
         "type": "return_statement",
         "named": true
       },
@@ -449,6 +473,10 @@
       },
       {
         "type": "switch_statement",
+        "named": true
+      },
+      {
+        "type": "synchronized_statement",
         "named": true
       },
       {
@@ -555,6 +583,32 @@
           },
           {
             "type": "expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "type_qualifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "abstract_block_pointer_declarator",
+    "named": true,
+    "fields": {
+      "declarator": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "_abstract_declarator",
             "named": true
           }
         ]
@@ -1356,6 +1410,40 @@
     }
   },
   {
+    "type": "block_pointer_declarator",
+    "named": true,
+    "fields": {
+      "declarator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_declarator",
+            "named": true
+          },
+          {
+            "type": "_field_declarator",
+            "named": true
+          },
+          {
+            "type": "_type_declarator",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "type_qualifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "break_statement",
     "named": true,
     "fields": {}
@@ -1466,6 +1554,14 @@
           "named": true
         },
         {
+          "type": "objc_throw_statement",
+          "named": true
+        },
+        {
+          "type": "objc_try_statement",
+          "named": true
+        },
+        {
           "type": "return_statement",
           "named": true
         },
@@ -1479,6 +1575,10 @@
         },
         {
           "type": "switch_statement",
+          "named": true
+        },
+        {
+          "type": "synchronized_statement",
           "named": true
         },
         {
@@ -3558,7 +3658,7 @@
     "fields": {
       "body": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "statement",
@@ -3598,6 +3698,16 @@
           }
         ]
       },
+      "type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type_specifier",
+            "named": true
+          }
+        ]
+      },
       "update": {
         "multiple": false,
         "required": false,
@@ -3612,6 +3722,136 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "_declarator",
+          "named": true
+        },
+        {
+          "type": "attribute_declaration",
+          "named": true
+        },
+        {
+          "type": "attribute_specifier",
+          "named": true
+        },
+        {
+          "type": "attributed_statement",
+          "named": true
+        },
+        {
+          "type": "availability_attribute_specifier",
+          "named": true
+        },
+        {
+          "type": "break_statement",
+          "named": true
+        },
+        {
+          "type": "co_return_statement",
+          "named": true
+        },
+        {
+          "type": "co_yield_statement",
+          "named": true
+        },
+        {
+          "type": "compound_statement",
+          "named": true
+        },
+        {
+          "type": "continue_statement",
+          "named": true
+        },
+        {
+          "type": "do_statement",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "expression_statement",
+          "named": true
+        },
+        {
+          "type": "for_range_loop",
+          "named": true
+        },
+        {
+          "type": "for_statement",
+          "named": true
+        },
+        {
+          "type": "goto_statement",
+          "named": true
+        },
+        {
+          "type": "if_statement",
+          "named": true
+        },
+        {
+          "type": "labeled_statement",
+          "named": true
+        },
+        {
+          "type": "ms_declspec_modifier",
+          "named": true
+        },
+        {
+          "type": "objc_throw_statement",
+          "named": true
+        },
+        {
+          "type": "objc_try_statement",
+          "named": true
+        },
+        {
+          "type": "return_statement",
+          "named": true
+        },
+        {
+          "type": "seh_leave_statement",
+          "named": true
+        },
+        {
+          "type": "seh_try_statement",
+          "named": true
+        },
+        {
+          "type": "storage_class_specifier",
+          "named": true
+        },
+        {
+          "type": "switch_statement",
+          "named": true
+        },
+        {
+          "type": "synchronized_statement",
+          "named": true
+        },
+        {
+          "type": "throw_statement",
+          "named": true
+        },
+        {
+          "type": "try_statement",
+          "named": true
+        },
+        {
+          "type": "type_qualifier",
+          "named": true
+        },
+        {
+          "type": "while_statement",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -5152,6 +5392,78 @@
     "type": "null",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "objc_catch_clause",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "compound_statement",
+          "named": true
+        },
+        {
+          "type": "type_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "objc_finally_clause",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "compound_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "objc_throw_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "objc_try_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "compound_statement",
+          "named": true
+        },
+        {
+          "type": "objc_catch_clause",
+          "named": true
+        },
+        {
+          "type": "objc_finally_clause",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "offsetof_expression",
@@ -7751,6 +8063,25 @@
     }
   },
   {
+    "type": "synchronized_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "compound_statement",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "template_argument_list",
     "named": true,
     "fields": {},
@@ -9098,7 +9429,15 @@
     "named": false
   },
   {
+    "type": "@autoreleasepool",
+    "named": false
+  },
+  {
     "type": "@available",
+    "named": false
+  },
+  {
+    "type": "@catch",
     "named": false
   },
   {
@@ -9119,6 +9458,10 @@
   },
   {
     "type": "@end",
+    "named": false
+  },
+  {
+    "type": "@finally",
     "named": false
   },
   {
@@ -9170,7 +9513,19 @@
     "named": false
   },
   {
+    "type": "@synchronized",
+    "named": false
+  },
+  {
     "type": "@synthesize",
+    "named": false
+  },
+  {
+    "type": "@throw",
+    "named": false
+  },
+  {
+    "type": "@try",
     "named": false
   },
   {
@@ -9202,6 +9557,14 @@
     "named": false
   },
   {
+    "type": "CG_EXTERN",
+    "named": false
+  },
+  {
+    "type": "CG_INLINE",
+    "named": false
+  },
+  {
     "type": "Class",
     "named": false
   },
@@ -9211,6 +9574,30 @@
   },
   {
     "type": "DEPRECATED_MSG_ATTRIBUTE",
+    "named": false
+  },
+  {
+    "type": "FOUNDATION_EXPORT",
+    "named": false
+  },
+  {
+    "type": "FOUNDATION_EXTERN",
+    "named": false
+  },
+  {
+    "type": "FOUNDATION_STATIC_INLINE",
+    "named": false
+  },
+  {
+    "type": "IBInspectable",
+    "named": false
+  },
+  {
+    "type": "IBOutlet",
+    "named": false
+  },
+  {
+    "type": "IB_DESIGNABLE",
     "named": false
   },
   {
@@ -9270,6 +9657,10 @@
     "named": false
   },
   {
+    "type": "NS_INLINE",
+    "named": false
+  },
+  {
     "type": "NS_REQUIRES_NIL_TERMINATION",
     "named": false
   },
@@ -9290,7 +9681,19 @@
     "named": false
   },
   {
+    "type": "NS_VALID_UNTIL_END_OF_SCOPE",
+    "named": false
+  },
+  {
     "type": "NULL",
+    "named": false
+  },
+  {
+    "type": "OBJC_EXPORT",
+    "named": false
+  },
+  {
+    "type": "OBJC_ROOT_CLASS",
     "named": false
   },
   {
@@ -9307,6 +9710,10 @@
   },
   {
     "type": "U'",
+    "named": false
+  },
+  {
+    "type": "UIKIT_EXTERN",
     "named": false
   },
   {
@@ -9362,6 +9769,10 @@
     "named": false
   },
   {
+    "type": "_Complex",
+    "named": false
+  },
+  {
     "type": "_Generic",
     "named": false
   },
@@ -9371,6 +9782,18 @@
   },
   {
     "type": "_Noreturn",
+    "named": false
+  },
+  {
+    "type": "_Null_unspecified",
+    "named": false
+  },
+  {
+    "type": "_Nullable",
+    "named": false
+  },
+  {
+    "type": "_Nullable_result",
     "named": false
   },
   {
@@ -9406,7 +9829,27 @@
     "named": false
   },
   {
+    "type": "__autoreleasing",
+    "named": false
+  },
+  {
     "type": "__based",
+    "named": false
+  },
+  {
+    "type": "__block",
+    "named": false
+  },
+  {
+    "type": "__bridge",
+    "named": false
+  },
+  {
+    "type": "__bridge_retained",
+    "named": false
+  },
+  {
+    "type": "__bridge_transfer",
     "named": false
   },
   {
@@ -9419,6 +9862,14 @@
   },
   {
     "type": "__clrcall",
+    "named": false
+  },
+  {
+    "type": "__complex",
+    "named": false
+  },
+  {
+    "type": "__const",
     "named": false
   },
   {
@@ -9462,6 +9913,10 @@
     "named": false
   },
   {
+    "type": "__imag",
+    "named": false
+  },
+  {
     "type": "__inline",
     "named": false
   },
@@ -9470,7 +9925,35 @@
     "named": false
   },
   {
+    "type": "__kindof",
+    "named": false
+  },
+  {
     "type": "__leave",
+    "named": false
+  },
+  {
+    "type": "__nonnull",
+    "named": false
+  },
+  {
+    "type": "__nullable",
+    "named": false
+  },
+  {
+    "type": "__ptrauth_objc_class_ro",
+    "named": false
+  },
+  {
+    "type": "__ptrauth_objc_isa_pointer",
+    "named": false
+  },
+  {
+    "type": "__ptrauth_objc_super_pointer",
+    "named": false
+  },
+  {
+    "type": "__real",
     "named": false
   },
   {
@@ -9479,6 +9962,10 @@
   },
   {
     "type": "__stdcall",
+    "named": false
+  },
+  {
+    "type": "__strong",
     "named": false
   },
   {
@@ -9506,11 +9993,23 @@
     "named": false
   },
   {
+    "type": "__unsafe_unretained",
+    "named": false
+  },
+  {
+    "type": "__unused",
+    "named": false
+  },
+  {
     "type": "__vectorcall",
     "named": false
   },
   {
     "type": "__volatile__",
+    "named": false
+  },
+  {
+    "type": "__weak",
     "named": false
   },
   {
@@ -9776,6 +10275,10 @@
   },
   {
     "type": "not_eq",
+    "named": false
+  },
+  {
+    "type": "nullable",
     "named": false
   },
   {

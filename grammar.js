@@ -40,6 +40,8 @@ module.exports = grammar(CPP, {
     [$.expression, $._class_name],
     [$.template_type, $.template_method],
     [$.string_literal],
+    [$.specifier_qualifier, $.block_pointer_declarator],
+    [$.type_name, $.block_pointer_declarator],
   ]),
 
   inline: ($, original) => original.concat([
@@ -551,6 +553,166 @@ module.exports = grammar(CPP, {
 
     ...preprocIf('_in_implementation_definition', $ => $.implementation_definition),
     ...preprocIf('_in_interface_declaration', $ => $.interface_declaration),
+
+    // --- ObjC Statements ---
+
+    _non_case_statement: ($, original) => choice(
+      original,
+      $.objc_try_statement,
+      $.objc_throw_statement,
+      $.synchronized_statement,
+    ),
+
+    objc_try_statement: $ => seq(
+      '@try',
+      $.compound_statement,
+      choice(
+        seq(repeat1($.objc_catch_clause), optional($.objc_finally_clause)),
+        $.objc_finally_clause,
+      ),
+    ),
+
+    objc_catch_clause: $ => seq(
+      '@catch',
+      optional(seq('(', choice('...', $.type_name), ')')),
+      $.compound_statement,
+    ),
+
+    objc_finally_clause: $ => seq(
+      '@finally',
+      $.compound_statement,
+    ),
+
+    objc_throw_statement: $ => seq(
+      '@throw',
+      optional($.expression),
+      ';',
+    ),
+
+    synchronized_statement: $ => seq(
+      '@synchronized',
+      '(',
+      commaSep1($.expression),
+      ')',
+      $.compound_statement,
+    ),
+
+    // Override compound_statement to support @autoreleasepool prefix
+    compound_statement: ($, original) => prec(-1, seq(
+      optional('@autoreleasepool'),
+      original,
+    )),
+
+    // Override for_statement to support for-in (fast enumeration)
+    for_statement: ($, original) => choice(
+      original,
+      prec(1, seq(
+        'for',
+        '(',
+        choice(
+          seq($._declaration_specifiers, $._declarator),
+          $.identifier,
+        ),
+        'in',
+        $.expression,
+        ')',
+        $._non_case_statement,
+      )),
+    ),
+
+    // --- Block pointer declarators ---
+
+    _declarator: ($, original) => choice(
+      original,
+      $.block_pointer_declarator,
+    ),
+
+    _abstract_declarator: ($, original) => choice(
+      original,
+      $.abstract_block_pointer_declarator,
+    ),
+
+    _field_declarator: ($, original) => choice(
+      original,
+      alias($.block_pointer_field_declarator, $.block_pointer_declarator),
+    ),
+
+    _type_declarator: ($, original) => choice(
+      original,
+      alias($.block_pointer_type_declarator, $.block_pointer_declarator),
+    ),
+
+    block_pointer_declarator: $ => prec.dynamic(1, prec.right(seq(
+      '^',
+      repeat($.type_qualifier),
+      field('declarator', $._declarator),
+    ))),
+    block_pointer_field_declarator: $ => prec.dynamic(1, prec.right(seq(
+      '^',
+      repeat($.type_qualifier),
+      field('declarator', $._field_declarator),
+    ))),
+    block_pointer_type_declarator: $ => prec.dynamic(1, prec.right(seq(
+      '^',
+      repeat($.type_qualifier),
+      field('declarator', $._type_declarator),
+    ))),
+    abstract_block_pointer_declarator: $ => prec.dynamic(1, prec.right(seq(
+      '^',
+      repeat($.type_qualifier),
+      field('declarator', optional($._abstract_declarator)),
+    ))),
+
+    // --- Type qualifiers (ARC, nullability, etc.) ---
+
+    type_qualifier: (_, original) => prec.right(choice(
+      original,
+      'nullable',
+      '_Complex',
+      '_Nonnull',
+      '_Nullable',
+      '_Nullable_result',
+      '_Null_unspecified',
+      '__autoreleasing',
+      '__block',
+      '__bridge',
+      '__bridge_retained',
+      '__bridge_transfer',
+      '__complex',
+      '__const',
+      '__imag',
+      '__kindof',
+      '__nonnull',
+      '__nullable',
+      '__ptrauth_objc_class_ro',
+      '__ptrauth_objc_isa_pointer',
+      '__ptrauth_objc_super_pointer',
+      '__real',
+      '__strong',
+      '__unsafe_unretained',
+      '__unused',
+      '__weak',
+    )),
+
+    // --- Storage class specifier extensions ---
+
+    storage_class_specifier: (_, original) => choice(
+      original,
+      '__inline__',
+      'CG_EXTERN',
+      'CG_INLINE',
+      'FOUNDATION_EXPORT',
+      'FOUNDATION_EXTERN',
+      'FOUNDATION_STATIC_INLINE',
+      'IBOutlet',
+      'IBInspectable',
+      'IB_DESIGNABLE',
+      'NS_INLINE',
+      'NS_VALID_UNTIL_END_OF_SCOPE',
+      'OBJC_EXPORT',
+      'OBJC_ROOT_CLASS',
+      'UIKIT_EXTERN',
+    ),
 
     // --- ObjC Expressions ---
 

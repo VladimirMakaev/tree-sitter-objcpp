@@ -1,0 +1,227 @@
+================================================================================
+ObjC try-catch-finally
+================================================================================
+
+void f() { @try { } @catch (NSException *e) { } @finally { } }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (objc_try_statement
+        (compound_statement)
+        (objc_catch_clause
+          (type_name
+            (type_identifier)
+            (pointer_declarator
+              declarator: (identifier)))
+          (compound_statement))
+        (objc_finally_clause
+          (compound_statement))))))
+
+================================================================================
+ObjC throw statement
+================================================================================
+
+void f() { @throw expr; }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (objc_throw_statement
+        (identifier)))))
+
+================================================================================
+Synchronized statement
+================================================================================
+
+void f() { @synchronized(lock) { } }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (synchronized_statement
+        (identifier)
+        (compound_statement)))))
+
+================================================================================
+Autoreleasepool
+================================================================================
+
+void f() { @autoreleasepool { } }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (compound_statement))))
+
+================================================================================
+Fast enumeration (for-in)
+================================================================================
+
+void f() { for (id obj in array) { } }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (for_statement
+        type: (typedefed_specifier)
+        (identifier)
+        (identifier)
+        (compound_statement)))))
+
+================================================================================
+Block pointer declaration
+================================================================================
+
+void f() { void (^handler)(int); }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (declaration
+        type: (primitive_type)
+        declarator: (function_declarator
+          declarator: (parenthesized_declarator
+            (block_pointer_declarator
+              declarator: (identifier)))
+          parameters: (parameter_list
+            (parameter_declaration
+              type: (primitive_type))))))))
+
+================================================================================
+ARC qualifiers
+================================================================================
+
+void f() {
+  __strong NSObject *obj;
+  __weak id delegate;
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (declaration
+        (type_qualifier)
+        type: (type_identifier)
+        declarator: (pointer_declarator
+          declarator: (identifier)))
+      (declaration
+        (type_qualifier)
+        type: (typedefed_specifier)
+        declarator: (identifier)))))
+
+================================================================================
+Nullability qualifiers
+================================================================================
+
+void f() { _Nonnull int *p; _Nullable NSString *s; }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (declaration
+        (type_qualifier)
+        type: (primitive_type)
+        declarator: (pointer_declarator
+          declarator: (identifier)))
+      (declaration
+        (type_qualifier)
+        type: (type_identifier)
+        declarator: (pointer_declarator
+          declarator: (identifier))))))
+
+================================================================================
+IBOutlet storage class
+================================================================================
+
+@interface Foo
+@property IBOutlet NSView *view;
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_interface
+    (identifier)
+    (property_declaration
+      (declaration
+        (storage_class_specifier)
+        type: (type_identifier)
+        declarator: (pointer_declarator
+          declarator: (identifier))))))
+
+================================================================================
+C++ try alongside ObjC try
+================================================================================
+
+void f() {
+  try { } catch (...) { }
+  @try { } @catch (...) { }
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (try_statement
+        body: (compound_statement)
+        (catch_clause
+          parameters: (parameter_list)
+          body: (compound_statement)))
+      (objc_try_statement
+        (compound_statement)
+        (objc_catch_clause
+          (compound_statement))))))
