@@ -1,0 +1,347 @@
+=======================================
+Nested message send at statement start
+=======================================
+
+void f() { [[Foo alloc] init]; }
+
+---
+
+(translation_unit
+  (function_definition
+    (primitive_type)
+    (function_declarator (identifier) (parameter_list))
+    (compound_statement
+      (expression_statement
+        (message_expression
+          (message_expression
+            (identifier)
+            (identifier))
+          (identifier))))))
+
+=======================================
+Nested message in if condition
+=======================================
+
+void f() { if ([[Foo alloc] init]) {} }
+
+---
+
+(translation_unit
+  (function_definition
+    (primitive_type)
+    (function_declarator (identifier) (parameter_list))
+    (compound_statement
+      (if_statement
+        (condition_clause
+          (message_expression
+            (message_expression
+              (identifier)
+              (identifier))
+            (identifier)))
+        (compound_statement)))))
+
+=======================================
+Nested message in while condition
+=======================================
+
+void f() { while ([[Foo alloc] init]) {} }
+
+---
+
+(translation_unit
+  (function_definition
+    (primitive_type)
+    (function_declarator (identifier) (parameter_list))
+    (compound_statement
+      (while_statement
+        (condition_clause
+          (message_expression
+            (message_expression
+              (identifier)
+              (identifier))
+            (identifier)))
+        (compound_statement)))))
+
+=======================================
+Nested message in switch condition
+=======================================
+
+void f() { switch ([[obj m] intValue]) {} }
+
+---
+
+(translation_unit
+  (function_definition
+    (primitive_type)
+    (function_declarator (identifier) (parameter_list))
+    (compound_statement
+      (switch_statement
+        (condition_clause
+          (message_expression
+            (message_expression
+              (identifier)
+              (identifier))
+            (identifier)))
+        (compound_statement)))))
+
+=======================================
+Triple nested message send
+=======================================
+
+void f() { [[[a b] c] d]; }
+
+---
+
+(translation_unit
+  (function_definition
+    (primitive_type)
+    (function_declarator (identifier) (parameter_list))
+    (compound_statement
+      (expression_statement
+        (message_expression
+          (message_expression
+            (message_expression
+              (identifier)
+              (identifier))
+            (identifier))
+          (identifier))))))
+
+=======================================
+C++ attribute regression - local
+=======================================
+
+void f() { [[deprecated]] int x = 0; }
+
+---
+
+(translation_unit
+  (function_definition
+    (primitive_type)
+    (function_declarator (identifier) (parameter_list))
+    (compound_statement
+      (declaration
+        (attribute_declaration
+          (attribute
+            (identifier)))
+        (primitive_type)
+        (init_declarator
+          (identifier)
+          (number_literal))))))
+
+=======================================
+C++ attribute regression - top level
+=======================================
+
+[[nodiscard]] int getValue();
+
+---
+
+(translation_unit
+  (declaration
+    (attribute_declaration
+      (attribute
+        (identifier)))
+    (primitive_type)
+    (function_declarator (identifier) (parameter_list))))
+
+=======================================
+Nested message in assignment (existing)
+=======================================
+
+void f() { id x = [[Foo alloc] init]; }
+
+---
+
+(translation_unit
+  (function_definition
+    (primitive_type)
+    (function_declarator (identifier) (parameter_list))
+    (compound_statement
+      (declaration
+        (typedefed_specifier)
+        (init_declarator
+          (identifier)
+          (message_expression
+            (message_expression
+              (identifier)
+              (identifier))
+            (identifier)))))))
+
+=======================================
+Multiple C++ attributes
+=======================================
+
+[[deprecated]] [[nodiscard]] int getValue();
+
+---
+
+(translation_unit
+  (declaration
+    (attribute_declaration
+      (attribute
+        (identifier)))
+    (attribute_declaration
+      (attribute
+        (identifier)))
+    (primitive_type)
+    (function_declarator (identifier) (parameter_list))))
+
+=======================================
+5-level nested message send
+=======================================
+
+void f() { [[[[[a b] c] d] e] f]; }
+
+---
+
+(translation_unit
+  (function_definition
+    (primitive_type)
+    (function_declarator (identifier) (parameter_list))
+    (compound_statement
+      (expression_statement
+        (message_expression
+          (message_expression
+            (message_expression
+              (message_expression
+                (message_expression
+                  (identifier)
+                  (identifier))
+                (identifier))
+              (identifier))
+            (identifier))
+          (identifier))))))
+
+=======================================
+Scoped attribute plus nested message
+=======================================
+
+void f() { [[gnu::unused]] auto x = [[Foo alloc] init]; }
+
+---
+
+(translation_unit
+  (function_definition
+    (primitive_type)
+    (function_declarator (identifier) (parameter_list))
+    (compound_statement
+      (declaration
+        (attribute_declaration
+          (attribute
+            (identifier)
+            (identifier)))
+        (placeholder_type_specifier
+          (auto))
+        (init_declarator
+          (identifier)
+          (message_expression
+            (message_expression
+              (identifier)
+              (identifier))
+            (identifier)))))))
+
+=======================================
+Nested message with keyword argument
+=======================================
+
+void f() { [[Foo alloc] initWithCapacity:10]; }
+
+---
+
+(translation_unit
+  (function_definition
+    (primitive_type)
+    (function_declarator (identifier) (parameter_list))
+    (compound_statement
+      (expression_statement
+        (message_expression
+          (message_expression
+            (identifier)
+            (identifier))
+          (identifier)
+          (number_literal))))))
+
+=======================================
+Nested message inside autoreleasepool
+=======================================
+
+void f() { @autoreleasepool { [[Foo alloc] init]; } }
+
+---
+
+(translation_unit
+  (function_definition
+    (primitive_type)
+    (function_declarator (identifier) (parameter_list))
+    (compound_statement
+      (compound_statement
+        (expression_statement
+          (message_expression
+            (message_expression
+              (identifier)
+              (identifier))
+            (identifier)))))))
+
+=======================================
+Nested message inside lambda body
+=======================================
+
+auto fn = [](){ [[Foo alloc] init]; };
+
+---
+
+(translation_unit
+  (declaration
+    (placeholder_type_specifier
+      (auto))
+    (init_declarator
+      (identifier)
+      (lambda_expression
+        (lambda_capture_specifier)
+        (abstract_function_declarator
+          (parameter_list))
+        (compound_statement
+          (expression_statement
+            (message_expression
+              (message_expression
+                (identifier)
+                (identifier))
+              (identifier))))))))
+
+=======================================
+Multi-attribute regression
+=======================================
+
+[[maybe_unused, deprecated]] int x;
+
+---
+
+(translation_unit
+  (declaration
+    (attribute_declaration
+      (attribute
+        (identifier))
+      (attribute
+        (identifier)))
+    (primitive_type)
+    (identifier)))
+
+=======================================
+Nested message in return statement
+=======================================
+
+void f() { return [[Foo alloc] init]; }
+
+---
+
+(translation_unit
+  (function_definition
+    (primitive_type)
+    (function_declarator (identifier) (parameter_list))
+    (compound_statement
+      (return_statement
+        (message_expression
+          (message_expression
+            (identifier)
+            (identifier))
+          (identifier))))))

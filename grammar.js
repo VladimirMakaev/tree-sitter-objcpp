@@ -19,6 +19,8 @@ const PREC = Object.assign(C.PREC, {
 module.exports = grammar(CPP, {
   name: 'objcpp',
 
+  externals: ($, original) => original.concat([$._attr_open]),
+
   conflicts: ($, original) => original.concat([
     [$.parameterized_arguments],
     [$._declarator, $.type_specifier, $.sized_type_specifier],
@@ -58,6 +60,9 @@ module.exports = grammar(CPP, {
   ]),
 
   rules: {
+    // Override attribute_declaration to use external scanner for [[ disambiguation
+    attribute_declaration: $ => seq($._attr_open, commaSep1($.attribute), ']]'),
+
     _top_level_item: ($, original) => choice(
       original,
       $.class_interface,
