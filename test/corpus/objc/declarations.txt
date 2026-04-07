@@ -111,3 +111,24 @@ void f() { int x = (__typeof(y))z; }
               type: (typeof_specifier
                 (identifier)))
             value: (identifier)))))))
+
+=======================================
+Bare nonnull type qualifier
+=======================================
+
+void f(nonnull NSString *name) {}
+
+---
+
+(translation_unit
+  (function_definition
+    (primitive_type)
+    (function_declarator
+      (identifier)
+      (parameter_list
+        (parameter_declaration
+          (type_qualifier)
+          (type_identifier)
+          (pointer_declarator
+            (identifier)))))
+    (compound_statement)))

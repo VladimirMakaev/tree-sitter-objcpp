@@ -25,6 +25,17 @@
   "@required"
 ] @keyword
 
+; NS_ENUM/NS_OPTIONS macro keywords
+[
+  "NS_ENUM"
+  "NS_OPTIONS"
+  "NS_CLOSED_ENUM"
+  "NS_ERROR_ENUM"
+  "CF_ENUM"
+  "CF_OPTIONS"
+  "CF_CLOSED_ENUM"
+] @keyword
+
 ; Visibility specifiers
 (visibility_specification) @keyword.modifier
 
@@ -49,6 +60,7 @@
   "_Nullable"
   "_Nullable_result"
   "_Null_unspecified"
+  "nonnull"
   "nullable"
 ] @keyword.modifier
 

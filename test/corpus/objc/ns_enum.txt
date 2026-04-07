@@ -1,0 +1,93 @@
+=======================================
+NS_ENUM basic
+=======================================
+
+typedef NS_ENUM(NSInteger, MyEnum) {
+  MyEnumA,
+  MyEnumB,
+  MyEnumC
+};
+
+---
+
+(translation_unit
+  (ns_enum_specifier
+    type: (type_identifier)
+    name: (type_identifier)
+    body: (enumerator_list
+      (enumerator name: (identifier))
+      (enumerator name: (identifier))
+      (enumerator name: (identifier)))))
+
+=======================================
+NS_OPTIONS with values
+=======================================
+
+typedef NS_OPTIONS(NSUInteger, MyOpts) {
+  MyOptA = 1,
+  MyOptB = 2
+};
+
+---
+
+(translation_unit
+  (ns_enum_specifier
+    type: (type_identifier)
+    name: (type_identifier)
+    body: (enumerator_list
+      (enumerator name: (identifier) value: (number_literal))
+      (enumerator name: (identifier) value: (number_literal)))))
+
+=======================================
+NS_ENUM without name
+=======================================
+
+typedef NS_ENUM(NSInteger) {
+  A,
+  B
+};
+
+---
+
+(translation_unit
+  (ns_enum_specifier
+    type: (type_identifier)
+    body: (enumerator_list
+      (enumerator name: (identifier))
+      (enumerator name: (identifier)))))
+
+=======================================
+NS_ERROR_ENUM
+=======================================
+
+typedef NS_ERROR_ENUM(NSInteger, MyErrors) {
+  MyErrorA = 1
+};
+
+---
+
+(translation_unit
+  (ns_enum_specifier
+    type: (type_identifier)
+    name: (type_identifier)
+    body: (enumerator_list
+      (enumerator name: (identifier) value: (number_literal)))))
+
+=======================================
+CF_ENUM with negative values
+=======================================
+
+typedef CF_ENUM(CFIndex, CFResult) {
+  CFResultA = -1,
+  CFResultB = 0
+};
+
+---
+
+(translation_unit
+  (ns_enum_specifier
+    type: (type_identifier)
+    name: (type_identifier)
+    body: (enumerator_list
+      (enumerator name: (identifier) value: (number_literal))
+      (enumerator name: (identifier) value: (number_literal)))))

@@ -67,6 +67,7 @@ module.exports = grammar(CPP, {
       $.protocol_forward_declaration,
       $.module_import,
       $.compatibility_alias_declaration,
+      $.ns_enum_specifier,
     ),
 
     _block_item: ($, original) => choice(
@@ -78,6 +79,7 @@ module.exports = grammar(CPP, {
       $.protocol_forward_declaration,
       $.module_import,
       $.compatibility_alias_declaration,
+      $.ns_enum_specifier,
     ),
 
     // --- ObjC class forward declarations ---
@@ -412,6 +414,18 @@ module.exports = grammar(CPP, {
       ')',
     ),
 
+    ns_enum_specifier: $ => seq(
+      optional('typedef'),
+      choice('NS_ENUM', 'NS_OPTIONS', 'NS_CLOSED_ENUM', 'NS_ERROR_ENUM',
+             'CF_ENUM', 'CF_OPTIONS', 'CF_CLOSED_ENUM'),
+      '(',
+      field('type', $.type_specifier),
+      optional(seq(',', field('name', $._type_identifier))),
+      ')',
+      field('body', optional($.enumerator_list)),
+      ';',
+    ),
+
     // --- Struct declarations (used in properties and ivars) ---
 
     struct_declaration: $ => seq(
@@ -665,6 +679,7 @@ module.exports = grammar(CPP, {
 
     type_qualifier: (_, original) => prec.right(choice(
       original,
+      'nonnull',
       'nullable',
       '_Complex',
       '_Nonnull',
