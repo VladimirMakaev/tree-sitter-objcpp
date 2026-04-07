@@ -1,0 +1,242 @@
+================================================================================
+Message send - simple
+================================================================================
+
+void f() { [obj method]; }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (expression_statement
+        (message_expression
+          receiver: (identifier)
+          method: (identifier))))))
+
+================================================================================
+Lambda expression
+================================================================================
+
+void f() { auto x = [](int i){ return i; }; }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (declaration
+        type: (placeholder_type_specifier
+          (auto))
+        declarator: (init_declarator
+          declarator: (identifier)
+          value: (lambda_expression
+            captures: (lambda_capture_specifier)
+            declarator: (abstract_function_declarator
+              parameters: (parameter_list
+                (parameter_declaration
+                  type: (primitive_type)
+                  declarator: (identifier))))
+            body: (compound_statement
+              (return_statement
+                (identifier)))))))))
+
+================================================================================
+C++ attributes
+================================================================================
+
+void f() { [[deprecated]] int x = 0; }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (declaration
+        (attribute_declaration
+          (attribute
+            name: (identifier)))
+        type: (primitive_type)
+        declarator: (init_declarator
+          declarator: (identifier)
+          value: (number_literal))))))
+
+================================================================================
+Message send with message argument
+================================================================================
+
+void f() { [obj method:[inner method]]; }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (expression_statement
+        (message_expression
+          receiver: (identifier)
+          method: (identifier)
+          (message_expression
+            receiver: (identifier)
+            method: (identifier)))))))
+
+================================================================================
+id as type
+================================================================================
+
+void f() { id obj = nil; }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (declaration
+        type: (typedefed_specifier)
+        declarator: (init_declarator
+          declarator: (identifier)
+          value: (identifier))))))
+
+================================================================================
+id as variable name
+================================================================================
+
+void f() { int id = 42; }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (declaration
+        type: (primitive_type)
+        declarator: (init_declarator
+          declarator: (identifier)
+          value: (number_literal))))))
+
+================================================================================
+id with protocol qualifier
+================================================================================
+
+void f() { id<NSCoding> obj; }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (declaration
+        type: (typedefed_specifier
+          (protocol_reference_list
+            (identifier)))
+        declarator: (identifier)))))
+
+================================================================================
+Template and protocol angle brackets
+================================================================================
+
+void f() {
+  std::vector<int> v;
+  id<NSCoding> obj;
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (declaration
+        type: (qualified_identifier
+          scope: (namespace_identifier)
+          name: (template_type
+            name: (type_identifier)
+            arguments: (template_argument_list
+              (type_descriptor
+                type: (primitive_type)))))
+        declarator: (identifier))
+      (declaration
+        type: (typedefed_specifier
+          (protocol_reference_list
+            (identifier)))
+        declarator: (identifier)))))
+
+================================================================================
+Lambda inside message argument
+================================================================================
+
+void f() { [obj perform:^{ }]; }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (expression_statement
+        (message_expression
+          receiver: (identifier)
+          method: (identifier)
+          (block_literal
+            (compound_statement)))))))
+
+================================================================================
+ObjC message in C++ template argument
+================================================================================
+
+void f() { func<decltype([obj method])>(); }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (expression_statement
+        (call_expression
+          function: (template_function
+            name: (identifier)
+            arguments: (template_argument_list
+              (type_descriptor
+                type: (decltype
+                  (message_expression
+                    receiver: (identifier)
+                    method: (identifier))))))
+          arguments: (argument_list))))))
