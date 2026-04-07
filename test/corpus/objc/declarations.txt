@@ -1,0 +1,111 @@
+================================================================================
+ObjC method returning C++ template type
+================================================================================
+
+@interface Foo
+- (std::vector<int>)getItems;
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_interface
+    (identifier)
+    (method_declaration
+      (method_type
+        (type_name
+          (qualified_identifier
+            scope: (namespace_identifier)
+            name: (template_function
+              name: (identifier)
+              arguments: (template_argument_list
+                (type_descriptor
+                  type: (primitive_type)))))))
+      (identifier))))
+
+================================================================================
+Typedef with block pointer
+================================================================================
+
+typedef void (^CompletionHandler)(int result);
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (type_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (parenthesized_declarator
+        (block_pointer_declarator
+          declarator: (type_identifier)))
+      parameters: (parameter_list
+        (parameter_declaration
+          type: (primitive_type)
+          declarator: (identifier))))))
+
+================================================================================
+Property with C++ type
+================================================================================
+
+@interface Foo
+@property std::string name;
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_interface
+    (identifier)
+    (property_declaration
+      (struct_declaration
+        (qualified_identifier
+          scope: (namespace_identifier)
+          name: (type_identifier))
+        (struct_declarator
+          (identifier))))))
+
+================================================================================
+C++ enum class
+================================================================================
+
+enum class Color : int { Red = 0, Green, Blue };
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (enum_specifier
+    name: (type_identifier)
+    base: (primitive_type)
+    body: (enumerator_list
+      (enumerator
+        name: (identifier)
+        value: (number_literal))
+      (enumerator
+        name: (identifier))
+      (enumerator
+        name: (identifier)))))
+
+================================================================================
+ObjC typeof in cast
+================================================================================
+
+void f() { int x = (__typeof(y))z; }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (declaration
+        type: (primitive_type)
+        declarator: (init_declarator
+          declarator: (identifier)
+          value: (cast_expression
+            type: (type_descriptor
+              type: (typeof_specifier
+                (identifier)))
+            value: (identifier)))))))
