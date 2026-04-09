@@ -5,7 +5,15 @@
 #include <string.h>
 #include <wctype.h>
 
-enum TokenType { RAW_STRING_DELIMITER, RAW_STRING_CONTENT, ATTR_OPEN, TYPE_TRAIT_KEYWORD };
+enum TokenType {
+    RAW_STRING_DELIMITER,
+    RAW_STRING_CONTENT,
+    ATTR_OPEN,
+    TYPE_TRAIT_KEYWORD,
+    SELECTOR_NAME_KEYWORD,
+    OBJC_TYPE_QUALIFIER_KEYWORD,
+    OBJC_STORAGE_CLASS_KEYWORD,
+};
 
 /// The spec limits delimiters to 16 chars
 #define MAX_DELIMITER_LENGTH 16
@@ -202,44 +210,12 @@ static bool is_type_trait_prefix(const char *buf, int len) {
     return false;
 }
 
-/// Scan type trait keywords: __is_*, __has_*, __add_*, __remove_*, __make_*,
-/// __decay, __underlying_type, __reference_*
-/// These are Clang/GCC type trait intrinsics that take type arguments.
-static bool scan_type_trait_keyword(TSLexer *lexer) {
-    // Must start with '__'
-    if (lexer->lookahead != '_') return false;
-    advance(lexer);
-    if (lexer->lookahead != '_') return false;
-    advance(lexer);
-
-    // Read the rest of the identifier: [a-z_]+
-    char buf[64];
-    int len = 0;
-    while ((lexer->lookahead >= 'a' && lexer->lookahead <= 'z') ||
-           lexer->lookahead == '_') {
-        if (len < 63) buf[len] = (char)lexer->lookahead;
-        len++;
-        advance(lexer);
+/// Helper: check if a string is in a null-terminated keyword list
+static bool in_keyword_list(const char *word, const char **list) {
+    for (int i = 0; list[i]; i++) {
+        if (strcmp(word, list[i]) == 0) return true;
     }
-
-    // Must have at least some chars after __
-    if (len == 0 || len > 63) return false;
-
-    // Must NOT be followed by more identifier chars
-    if (iswalnum(lexer->lookahead) || lexer->lookahead == '_') return false;
-
-    // Check if it matches a known type trait prefix
-    if (!is_type_trait_prefix(buf, len)) return false;
-
-    lexer->mark_end(lexer);
-
-    // Must be followed by '(' (after optional whitespace) to be a type trait
-    while (lexer->lookahead == ' ' || lexer->lookahead == '\t' ||
-           lexer->lookahead == '\n' || lexer->lookahead == '\r') {
-        advance(lexer);
-    }
-
-    return lexer->lookahead == '(';
+    return false;
 }
 
 void *tree_sitter_objcpp_external_scanner_create() {
@@ -253,38 +229,134 @@ bool tree_sitter_objcpp_external_scanner_scan(void *payload, TSLexer *lexer, con
 
     // Error recovery: if all externals are valid, bail out
     if (valid_symbols[RAW_STRING_DELIMITER] && valid_symbols[RAW_STRING_CONTENT] &&
-        valid_symbols[ATTR_OPEN] && valid_symbols[TYPE_TRAIT_KEYWORD]) {
+        valid_symbols[ATTR_OPEN] && valid_symbols[TYPE_TRAIT_KEYWORD] &&
+        valid_symbols[SELECTOR_NAME_KEYWORD] && valid_symbols[OBJC_TYPE_QUALIFIER_KEYWORD] &&
+        valid_symbols[OBJC_STORAGE_CLASS_KEYWORD]) {
         return false;
     }
 
-    // Try TYPE_TRAIT_KEYWORD when valid
-    if (valid_symbols[TYPE_TRAIT_KEYWORD] && !valid_symbols[RAW_STRING_DELIMITER] && !valid_symbols[RAW_STRING_CONTENT]) {
-        // Skip leading whitespace
-        while (lexer->lookahead == ' ' || lexer->lookahead == '\t' ||
-               lexer->lookahead == '\n' || lexer->lookahead == '\r') {
-            lexer->advance(lexer, true);
-        }
-        if (lexer->lookahead == '_') {
-            lexer->result_symbol = TYPE_TRAIT_KEYWORD;
-            if (scan_type_trait_keyword(lexer)) {
-                return true;
+    // Try keyword-based external tokens when raw string tokens are NOT valid
+    if (!valid_symbols[RAW_STRING_DELIMITER] && !valid_symbols[RAW_STRING_CONTENT]) {
+
+        // Try ATTR_OPEN first — it matches '[' so won't interfere with keywords
+        if (valid_symbols[ATTR_OPEN]) {
+            // Skip leading whitespace before checking for [[
+            while (lexer->lookahead == ' ' || lexer->lookahead == '\t' ||
+                   lexer->lookahead == '\n' || lexer->lookahead == '\r') {
+                lexer->advance(lexer, true);
+            }
+            if (lexer->lookahead == '[') {
+                lexer->result_symbol = ATTR_OPEN;
+                if (scan_attr_open(lexer)) {
+                    return true;
+                }
+                // Not an attribute [[ — fall through to try keywords or return false
             }
         }
-    }
 
-    // Try ATTR_OPEN when valid and raw string tokens are NOT valid
-    if (valid_symbols[ATTR_OPEN] && !valid_symbols[RAW_STRING_DELIMITER] && !valid_symbols[RAW_STRING_CONTENT]) {
-        // Skip leading whitespace before checking for [[
-        while (lexer->lookahead == ' ' || lexer->lookahead == '\t' ||
-               lexer->lookahead == '\n' || lexer->lookahead == '\r') {
-            lexer->advance(lexer, true);  // skip = true for leading whitespace
+        bool want_any_keyword = valid_symbols[TYPE_TRAIT_KEYWORD] ||
+            valid_symbols[OBJC_TYPE_QUALIFIER_KEYWORD] ||
+            valid_symbols[OBJC_STORAGE_CLASS_KEYWORD] ||
+            valid_symbols[SELECTOR_NAME_KEYWORD];
+
+        if (want_any_keyword) {
+            // Skip leading whitespace (may already be skipped by ATTR_OPEN path)
+            while (lexer->lookahead == ' ' || lexer->lookahead == '\t' ||
+                   lexer->lookahead == '\n' || lexer->lookahead == '\r') {
+                lexer->advance(lexer, true);
+            }
+
+            // Only try if we see an identifier-start character
+            if (iswalpha(lexer->lookahead) || lexer->lookahead == '_') {
+                // Read the full identifier into a buffer (once)
+                char buf[64];
+                int len = 0;
+                while (iswalnum(lexer->lookahead) || lexer->lookahead == '_') {
+                    if (len < 63) buf[len] = (char)lexer->lookahead;
+                    len++;
+                    advance(lexer);
+                }
+                if (len > 0 && len < 63) {
+                    buf[len] = '\0';
+
+                    // Must not be followed by more identifier chars (already ensured by loop exit)
+                    lexer->mark_end(lexer);
+
+                    // Check type trait keywords: __is_*, __has_*, __add_*, __remove_*, __make_*, __decay, __underlying_type, __reference_*
+                    if (valid_symbols[TYPE_TRAIT_KEYWORD] && buf[0] == '_' && buf[1] == '_' && len > 2) {
+                        if (is_type_trait_prefix(buf + 2, len - 2)) {
+                            // Type traits must be followed by '('
+                            while (lexer->lookahead == ' ' || lexer->lookahead == '\t' ||
+                                   lexer->lookahead == '\n' || lexer->lookahead == '\r') {
+                                advance(lexer);
+                            }
+                            if (lexer->lookahead == '(') {
+                                lexer->result_symbol = TYPE_TRAIT_KEYWORD;
+                                return true;
+                            }
+                        }
+                    }
+
+                    // Check ObjC type qualifier keywords
+                    if (valid_symbols[OBJC_TYPE_QUALIFIER_KEYWORD]) {
+                        static const char *tq_keywords[] = {
+                            "nonnull", "nullable",
+                            "_Complex",
+                            "_Nonnull", "_Nullable", "_Nullable_result", "_Null_unspecified",
+                            "__autoreleasing", "__block",
+                            "__bridge", "__bridge_retained", "__bridge_transfer",
+                            "__complex", "__const",
+                            "__imag", "__kindof",
+                            "__nonnull", "__nullable",
+                            "__ptrauth_objc_class_ro", "__ptrauth_objc_isa_pointer",
+                            "__ptrauth_objc_super_pointer",
+                            "__real", "__strong",
+                            "__unsafe_unretained", "__unused", "__weak",
+                            NULL,
+                        };
+                        if (in_keyword_list(buf, tq_keywords)) {
+                            lexer->result_symbol = OBJC_TYPE_QUALIFIER_KEYWORD;
+                            return true;
+                        }
+                    }
+
+                    // Check ObjC storage class keywords
+                    if (valid_symbols[OBJC_STORAGE_CLASS_KEYWORD]) {
+                        static const char *sc_keywords[] = {
+                            "__inline__",
+                            "CG_EXTERN", "CG_INLINE",
+                            "FOUNDATION_EXPORT", "FOUNDATION_EXTERN", "FOUNDATION_STATIC_INLINE",
+                            "IBOutlet", "IBInspectable", "IB_DESIGNABLE",
+                            "NS_INLINE", "NS_VALID_UNTIL_END_OF_SCOPE",
+                            "OBJC_EXPORT", "OBJC_ROOT_CLASS",
+                            "UIKIT_EXTERN",
+                            NULL,
+                        };
+                        if (in_keyword_list(buf, sc_keywords)) {
+                            lexer->result_symbol = OBJC_STORAGE_CLASS_KEYWORD;
+                            return true;
+                        }
+                    }
+
+                    // Check selector name keywords
+                    if (valid_symbols[SELECTOR_NAME_KEYWORD]) {
+                        static const char *sel_keywords[] = {
+                            "new", "delete",
+                            "and", "and_eq", "bitand", "bitor", "compl",
+                            "not", "not_eq", "or", "or_eq", "xor", "xor_eq",
+                            "noexcept", "nullptr",
+                            "private", "protected", "public",
+                            "this",
+                            NULL,
+                        };
+                        if (in_keyword_list(buf, sel_keywords)) {
+                            lexer->result_symbol = SELECTOR_NAME_KEYWORD;
+                            return true;
+                        }
+                    }
+                }
+            }
         }
-        lexer->result_symbol = ATTR_OPEN;
-        if (scan_attr_open(lexer)) {
-            return true;
-        }
-        // Not an attribute [[ — return false so parser can try message_expression
-        return false;
     }
 
     // No skipping leading whitespace: raw-string grammar is space-sensitive.

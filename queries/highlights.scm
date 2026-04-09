@@ -45,31 +45,9 @@
   "__contravariant"
 ] @keyword.modifier
 
-; ARC / nullability qualifiers (when used as type_qualifier)
-[
-  "__strong"
-  "__weak"
-  "__unsafe_unretained"
-  "__autoreleasing"
-  "__block"
-  "__bridge"
-  "__bridge_retained"
-  "__bridge_transfer"
-  "__kindof"
-  "_Nonnull"
-  "_Nullable"
-  "_Nullable_result"
-  "_Null_unspecified"
-  "nonnull"
-  "nullable"
-] @keyword.modifier
-
-; Apple framework storage class specifiers
-[
-  "IBOutlet"
-  "IBInspectable"
-  "IB_DESIGNABLE"
-] @keyword.modifier
+; ARC / nullability qualifiers and storage class specifiers
+; (ObjC-specific keywords handled by external scanner, matched via parent nodes)
+(type_qualifier) @keyword.modifier
 
 ; ObjC built-in types
 [

@@ -4964,60 +4964,8 @@
           ]
         },
         {
-          "type": "STRING",
-          "value": "__inline__"
-        },
-        {
-          "type": "STRING",
-          "value": "CG_EXTERN"
-        },
-        {
-          "type": "STRING",
-          "value": "CG_INLINE"
-        },
-        {
-          "type": "STRING",
-          "value": "FOUNDATION_EXPORT"
-        },
-        {
-          "type": "STRING",
-          "value": "FOUNDATION_EXTERN"
-        },
-        {
-          "type": "STRING",
-          "value": "FOUNDATION_STATIC_INLINE"
-        },
-        {
-          "type": "STRING",
-          "value": "IBOutlet"
-        },
-        {
-          "type": "STRING",
-          "value": "IBInspectable"
-        },
-        {
-          "type": "STRING",
-          "value": "IB_DESIGNABLE"
-        },
-        {
-          "type": "STRING",
-          "value": "NS_INLINE"
-        },
-        {
-          "type": "STRING",
-          "value": "NS_VALID_UNTIL_END_OF_SCOPE"
-        },
-        {
-          "type": "STRING",
-          "value": "OBJC_EXPORT"
-        },
-        {
-          "type": "STRING",
-          "value": "OBJC_ROOT_CLASS"
-        },
-        {
-          "type": "STRING",
-          "value": "UIKIT_EXTERN"
+          "type": "SYMBOL",
+          "name": "_objc_storage_class_keyword"
         }
       ]
     },
@@ -5094,88 +5042,8 @@
             ]
           },
           {
-            "type": "STRING",
-            "value": "nonnull"
-          },
-          {
-            "type": "STRING",
-            "value": "nullable"
-          },
-          {
-            "type": "STRING",
-            "value": "_Complex"
-          },
-          {
-            "type": "STRING",
-            "value": "_Nonnull"
-          },
-          {
-            "type": "STRING",
-            "value": "_Nullable"
-          },
-          {
-            "type": "STRING",
-            "value": "_Nullable_result"
-          },
-          {
-            "type": "STRING",
-            "value": "_Null_unspecified"
-          },
-          {
-            "type": "STRING",
-            "value": "__autoreleasing"
-          },
-          {
-            "type": "STRING",
-            "value": "__block"
-          },
-          {
-            "type": "STRING",
-            "value": "__bridge"
-          },
-          {
-            "type": "STRING",
-            "value": "__bridge_retained"
-          },
-          {
-            "type": "STRING",
-            "value": "__bridge_transfer"
-          },
-          {
-            "type": "STRING",
-            "value": "__complex"
-          },
-          {
-            "type": "STRING",
-            "value": "__const"
-          },
-          {
-            "type": "STRING",
-            "value": "__imag"
-          },
-          {
-            "type": "STRING",
-            "value": "__kindof"
-          },
-          {
-            "type": "STRING",
-            "value": "__nonnull"
-          },
-          {
-            "type": "STRING",
-            "value": "__nullable"
-          },
-          {
-            "type": "STRING",
-            "value": "__ptrauth_objc_class_ro"
-          },
-          {
-            "type": "STRING",
-            "value": "__ptrauth_objc_isa_pointer"
-          },
-          {
-            "type": "STRING",
-            "value": "__ptrauth_objc_super_pointer"
+            "type": "SYMBOL",
+            "name": "_objc_type_qualifier_keyword"
           },
           {
             "type": "SEQ",
@@ -5218,26 +5086,6 @@
                 "value": ")"
               }
             ]
-          },
-          {
-            "type": "STRING",
-            "value": "__real"
-          },
-          {
-            "type": "STRING",
-            "value": "__strong"
-          },
-          {
-            "type": "STRING",
-            "value": "__unsafe_unretained"
-          },
-          {
-            "type": "STRING",
-            "value": "__unused"
-          },
-          {
-            "type": "STRING",
-            "value": "__weak"
           }
         ]
       }
@@ -18728,170 +18576,8 @@
         {
           "type": "ALIAS",
           "content": {
-            "type": "STRING",
-            "value": "new"
-          },
-          "named": true,
-          "value": "identifier"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "STRING",
-            "value": "delete"
-          },
-          "named": true,
-          "value": "identifier"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "STRING",
-            "value": "and"
-          },
-          "named": true,
-          "value": "identifier"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "STRING",
-            "value": "and_eq"
-          },
-          "named": true,
-          "value": "identifier"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "STRING",
-            "value": "bitand"
-          },
-          "named": true,
-          "value": "identifier"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "STRING",
-            "value": "bitor"
-          },
-          "named": true,
-          "value": "identifier"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "STRING",
-            "value": "compl"
-          },
-          "named": true,
-          "value": "identifier"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "STRING",
-            "value": "not"
-          },
-          "named": true,
-          "value": "identifier"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "STRING",
-            "value": "not_eq"
-          },
-          "named": true,
-          "value": "identifier"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "STRING",
-            "value": "or"
-          },
-          "named": true,
-          "value": "identifier"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "STRING",
-            "value": "or_eq"
-          },
-          "named": true,
-          "value": "identifier"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "STRING",
-            "value": "xor"
-          },
-          "named": true,
-          "value": "identifier"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "STRING",
-            "value": "xor_eq"
-          },
-          "named": true,
-          "value": "identifier"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "STRING",
-            "value": "noexcept"
-          },
-          "named": true,
-          "value": "identifier"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "STRING",
-            "value": "nullptr"
-          },
-          "named": true,
-          "value": "identifier"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "STRING",
-            "value": "private"
-          },
-          "named": true,
-          "value": "identifier"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "STRING",
-            "value": "protected"
-          },
-          "named": true,
-          "value": "identifier"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "STRING",
-            "value": "public"
-          },
-          "named": true,
-          "value": "identifier"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "STRING",
-            "value": "this"
+            "type": "SYMBOL",
+            "name": "_selector_name_keyword"
           },
           "named": true,
           "value": "identifier"
@@ -22652,6 +22338,18 @@
     {
       "type": "SYMBOL",
       "name": "_type_trait_keyword"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_selector_name_keyword"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_objc_type_qualifier_keyword"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_objc_storage_class_keyword"
     }
   ],
   "inline": [

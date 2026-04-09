@@ -8382,11 +8382,6 @@
     }
   },
   {
-    "type": "this",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "throw_specifier",
     "named": true,
     "fields": {},
@@ -9624,14 +9619,6 @@
     "named": false
   },
   {
-    "type": "CG_EXTERN",
-    "named": false
-  },
-  {
-    "type": "CG_INLINE",
-    "named": false
-  },
-  {
     "type": "Class",
     "named": false
   },
@@ -9641,30 +9628,6 @@
   },
   {
     "type": "DEPRECATED_MSG_ATTRIBUTE",
-    "named": false
-  },
-  {
-    "type": "FOUNDATION_EXPORT",
-    "named": false
-  },
-  {
-    "type": "FOUNDATION_EXTERN",
-    "named": false
-  },
-  {
-    "type": "FOUNDATION_STATIC_INLINE",
-    "named": false
-  },
-  {
-    "type": "IBInspectable",
-    "named": false
-  },
-  {
-    "type": "IBOutlet",
-    "named": false
-  },
-  {
-    "type": "IB_DESIGNABLE",
     "named": false
   },
   {
@@ -9736,10 +9699,6 @@
     "named": false
   },
   {
-    "type": "NS_INLINE",
-    "named": false
-  },
-  {
     "type": "NS_OPTIONS",
     "named": false
   },
@@ -9764,19 +9723,7 @@
     "named": false
   },
   {
-    "type": "NS_VALID_UNTIL_END_OF_SCOPE",
-    "named": false
-  },
-  {
     "type": "NULL",
-    "named": false
-  },
-  {
-    "type": "OBJC_EXPORT",
-    "named": false
-  },
-  {
-    "type": "OBJC_ROOT_CLASS",
     "named": false
   },
   {
@@ -9793,10 +9740,6 @@
   },
   {
     "type": "U'",
-    "named": false
-  },
-  {
-    "type": "UIKIT_EXTERN",
     "named": false
   },
   {
@@ -9848,10 +9791,6 @@
     "named": false
   },
   {
-    "type": "_Complex",
-    "named": false
-  },
-  {
     "type": "_Generic",
     "named": false
   },
@@ -9861,18 +9800,6 @@
   },
   {
     "type": "_Noreturn",
-    "named": false
-  },
-  {
-    "type": "_Null_unspecified",
-    "named": false
-  },
-  {
-    "type": "_Nullable",
-    "named": false
-  },
-  {
-    "type": "_Nullable_result",
     "named": false
   },
   {
@@ -9908,27 +9835,7 @@
     "named": false
   },
   {
-    "type": "__autoreleasing",
-    "named": false
-  },
-  {
     "type": "__based",
-    "named": false
-  },
-  {
-    "type": "__block",
-    "named": false
-  },
-  {
-    "type": "__bridge",
-    "named": false
-  },
-  {
-    "type": "__bridge_retained",
-    "named": false
-  },
-  {
-    "type": "__bridge_transfer",
     "named": false
   },
   {
@@ -9941,14 +9848,6 @@
   },
   {
     "type": "__clrcall",
-    "named": false
-  },
-  {
-    "type": "__complex",
-    "named": false
-  },
-  {
-    "type": "__const",
     "named": false
   },
   {
@@ -9992,10 +9891,6 @@
     "named": false
   },
   {
-    "type": "__imag",
-    "named": false
-  },
-  {
     "type": "__inline",
     "named": false
   },
@@ -10004,39 +9899,11 @@
     "named": false
   },
   {
-    "type": "__kindof",
-    "named": false
-  },
-  {
     "type": "__leave",
     "named": false
   },
   {
-    "type": "__nonnull",
-    "named": false
-  },
-  {
-    "type": "__nullable",
-    "named": false
-  },
-  {
     "type": "__ptrauth",
-    "named": false
-  },
-  {
-    "type": "__ptrauth_objc_class_ro",
-    "named": false
-  },
-  {
-    "type": "__ptrauth_objc_isa_pointer",
-    "named": false
-  },
-  {
-    "type": "__ptrauth_objc_super_pointer",
-    "named": false
-  },
-  {
-    "type": "__real",
     "named": false
   },
   {
@@ -10045,10 +9912,6 @@
   },
   {
     "type": "__stdcall",
-    "named": false
-  },
-  {
-    "type": "__strong",
     "named": false
   },
   {
@@ -10076,23 +9939,11 @@
     "named": false
   },
   {
-    "type": "__unsafe_unretained",
-    "named": false
-  },
-  {
-    "type": "__unused",
-    "named": false
-  },
-  {
     "type": "__vectorcall",
     "named": false
   },
   {
     "type": "__volatile__",
-    "named": false
-  },
-  {
-    "type": "__weak",
     "named": false
   },
   {
@@ -10349,10 +10200,6 @@
     "named": false
   },
   {
-    "type": "nonnull",
-    "named": false
-  },
-  {
     "type": "noreturn",
     "named": false
   },
@@ -10362,10 +10209,6 @@
   },
   {
     "type": "not_eq",
-    "named": false
-  },
-  {
-    "type": "nullable",
     "named": false
   },
   {
@@ -10498,7 +10341,7 @@
   },
   {
     "type": "this",
-    "named": false
+    "named": true
   },
   {
     "type": "thread_local",

@@ -19,7 +19,13 @@ const PREC = Object.assign(C.PREC, {
 module.exports = grammar(CPP, {
   name: 'objcpp',
 
-  externals: ($, original) => original.concat([$._attr_open, $._type_trait_keyword]),
+  externals: ($, original) => original.concat([
+    $._attr_open,
+    $._type_trait_keyword,
+    $._selector_name_keyword,
+    $._objc_type_qualifier_keyword,
+    $._objc_storage_class_keyword,
+  ]),
 
   conflicts: ($, original) => original.filter(
     c => !(c.length === 2 && c[0].name === 'type_qualifier' && c[1].name === 'extension_expression')
@@ -266,20 +272,7 @@ module.exports = grammar(CPP, {
 
     _selector_name: $ => choice(
       $.identifier,
-      // C++ keywords valid as ObjC selector names, aliased to identifier.
-      // Excludes keywords that start C++ constructs (class, struct, union, enum,
-      // namespace, template, try, catch, throw, using, operator, typename,
-      // decltype, typeid, static_assert, concept, requires, co_await/return/yield,
-      // export) and declaration modifiers (virtual, alignas, friend, constexpr,
-      // consteval, constinit, mutable, explicit).
-      ...[
-        'new', 'delete',
-        'and', 'and_eq', 'bitand', 'bitor', 'compl',
-        'not', 'not_eq', 'or', 'or_eq', 'xor', 'xor_eq',
-        'noexcept', 'nullptr',
-        'private', 'protected', 'public',
-        'this',
-      ].map(kw => alias(kw, $.identifier)),
+      alias($._selector_name_keyword, $.identifier),
     ),
 
     // --- Method declarations and definitions ---
@@ -704,53 +697,18 @@ module.exports = grammar(CPP, {
 
     type_qualifier: ($, original) => prec.right(choice(
       original,
-      'nonnull',
-      'nullable',
-      '_Complex',
-      '_Nonnull',
-      '_Nullable',
-      '_Nullable_result',
-      '_Null_unspecified',
-      '__autoreleasing',
-      '__block',
-      '__bridge',
-      '__bridge_retained',
-      '__bridge_transfer',
-      '__complex',
-      '__const',
-      '__imag',
-      '__kindof',
-      '__nonnull',
-      '__nullable',
-      '__ptrauth_objc_class_ro',
-      '__ptrauth_objc_isa_pointer',
-      '__ptrauth_objc_super_pointer',
+      // ObjC type qualifiers handled by external scanner as single token
+      $._objc_type_qualifier_keyword,
+      // __ptrauth with parenthesized arguments needs grammar support
       seq('__ptrauth', '(', commaSep1($.expression), ')'),
-      '__real',
-      '__strong',
-      '__unsafe_unretained',
-      '__unused',
-      '__weak',
     )),
 
     // --- Storage class specifier extensions ---
 
-    storage_class_specifier: (_, original) => choice(
+    storage_class_specifier: ($, original) => choice(
       original,
-      '__inline__',
-      'CG_EXTERN',
-      'CG_INLINE',
-      'FOUNDATION_EXPORT',
-      'FOUNDATION_EXTERN',
-      'FOUNDATION_STATIC_INLINE',
-      'IBOutlet',
-      'IBInspectable',
-      'IB_DESIGNABLE',
-      'NS_INLINE',
-      'NS_VALID_UNTIL_END_OF_SCOPE',
-      'OBJC_EXPORT',
-      'OBJC_ROOT_CLASS',
-      'UIKIT_EXTERN',
+      // ObjC storage class keywords handled by external scanner
+      $._objc_storage_class_keyword,
     ),
 
     // --- ObjC Expressions ---
