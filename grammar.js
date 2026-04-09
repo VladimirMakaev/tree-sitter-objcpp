@@ -19,7 +19,7 @@ const PREC = Object.assign(C.PREC, {
 module.exports = grammar(CPP, {
   name: 'objcpp',
 
-  externals: ($, original) => original.concat([$._attr_open]),
+  externals: ($, original) => original.concat([$._attr_open, $._type_trait_keyword]),
 
   conflicts: ($, original) => original.filter(
     c => !(c.length === 2 && c[0].name === 'type_qualifier' && c[1].name === 'extension_expression')
@@ -48,6 +48,7 @@ module.exports = grammar(CPP, {
     $.keyword_selector,
     $.typedefed_identifier,
     $.keyword_identifier,
+    $._selector_name,
   ]),
 
   supertypes: ($, original) => original.concat([
@@ -215,6 +216,7 @@ module.exports = grammar(CPP, {
       $.template_declaration,
       $.alias_declaration,
       $.using_declaration,
+      $.namespace_definition,
       alias($.preproc_if_in_interface_declaration, $.preproc_if),
       alias($.preproc_ifdef_in_interface_declaration, $.preproc_ifdef),
       $.preproc_def,
@@ -242,6 +244,9 @@ module.exports = grammar(CPP, {
       $.template_declaration,
       $.alias_declaration,
       $.using_declaration,
+      $.namespace_definition,
+      $.class_forward_declaration,
+      $.class_interface,
       alias($.preproc_if_in_implementation_definition, $.preproc_if),
       alias($.preproc_ifdef_in_implementation_definition, $.preproc_ifdef),
       $.preproc_def,
@@ -255,6 +260,26 @@ module.exports = grammar(CPP, {
         ';',
       ),
       seq('@dynamic', optional('(class)'), commaSep1($.identifier), ';'),
+    ),
+
+    // --- Selector name (allows C++ keywords as ObjC selectors) ---
+
+    _selector_name: $ => choice(
+      $.identifier,
+      // C++ keywords valid as ObjC selector names, aliased to identifier.
+      // Excludes keywords that start C++ constructs (class, struct, union, enum,
+      // namespace, template, try, catch, throw, using, operator, typename,
+      // decltype, typeid, static_assert, concept, requires, co_await/return/yield,
+      // export) and declaration modifiers (virtual, alignas, friend, constexpr,
+      // consteval, constinit, mutable, explicit).
+      ...[
+        'new', 'delete',
+        'and', 'and_eq', 'bitand', 'bitor', 'compl',
+        'not', 'not_eq', 'or', 'or_eq', 'xor', 'xor_eq',
+        'noexcept', 'nullptr',
+        'private', 'protected', 'public',
+        'this',
+      ].map(kw => alias(kw, $.identifier)),
     ),
 
     // --- Method declarations and definitions ---
@@ -296,7 +321,7 @@ module.exports = grammar(CPP, {
     )),
 
     method_selector_no_list: $ => choice(
-      $.identifier,
+      $._selector_name,
       $.keyword_selector,
       seq($.keyword_selector, ',', '...'),
     ),
@@ -304,7 +329,7 @@ module.exports = grammar(CPP, {
     keyword_selector: $ => repeat1($.keyword_declarator),
 
     keyword_declarator: $ => seq(
-      optional($.identifier),
+      optional($._selector_name),
       ':',
       optional($.method_type),
       $.identifier,
@@ -360,8 +385,8 @@ module.exports = grammar(CPP, {
     ),
 
     property_attribute: $ => choice(
-      $.identifier,
-      seq($.identifier, '=', $.identifier, optional(':')),
+      $._selector_name,
+      seq($._selector_name, '=', $._selector_name, optional(':')),
     ),
 
     // --- ObjC type system additions ---
@@ -677,7 +702,7 @@ module.exports = grammar(CPP, {
 
     // --- Type qualifiers (ARC, nullability, etc.) ---
 
-    type_qualifier: (_, original) => prec.right(choice(
+    type_qualifier: ($, original) => prec.right(choice(
       original,
       'nonnull',
       'nullable',
@@ -700,6 +725,7 @@ module.exports = grammar(CPP, {
       '__ptrauth_objc_class_ro',
       '__ptrauth_objc_isa_pointer',
       '__ptrauth_objc_super_pointer',
+      seq('__ptrauth', '(', commaSep1($.expression), ')'),
       '__real',
       '__strong',
       '__unsafe_unretained',
@@ -741,13 +767,14 @@ module.exports = grammar(CPP, {
       $.encode_expression,
       $.va_arg_expression,
       $.keyword_identifier,
+      $.type_trait_expression,
     ),
 
     message_expression: $ => prec(PREC.CALL, seq(
       '[',
       field('receiver', $.expression),
       repeat1(seq(
-        field('method', $.identifier),
+        field('method', $._selector_name),
         repeat(seq(
           ':',
           commaSep1($.expression),
@@ -814,6 +841,13 @@ module.exports = grammar(CPP, {
     encode_expression: $ => seq('@encode', '(', $.type_name, ')'),
 
     va_arg_expression: $ => seq('va_arg', '(', $.expression, ',', $.type_descriptor, ')'),
+
+    type_trait_expression: $ => seq(
+      field('name', alias($._type_trait_keyword, $.identifier)),
+      '(',
+      commaSep1($.type_descriptor),
+      ')',
+    ),
 
     // Override string_literal to support @"string"
     string_literal: $ => seq(

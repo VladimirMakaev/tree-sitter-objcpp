@@ -1,0 +1,179 @@
+================================================================================
+C++ keywords as ObjC selector names in declarations
+================================================================================
+
+@interface Foo
+- (void)and;
+- (void)or;
+- (void)new;
+- (void)delete;
+- (void)xor;
+- (void)not;
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_interface
+    (identifier)
+    (interface_declaration
+      (method_declaration
+        (method_type
+          (type_name
+            (primitive_type)))
+        (identifier)))
+    (interface_declaration
+      (method_declaration
+        (method_type
+          (type_name
+            (primitive_type)))
+        (identifier)))
+    (interface_declaration
+      (method_declaration
+        (method_type
+          (type_name
+            (primitive_type)))
+        (identifier)))
+    (interface_declaration
+      (method_declaration
+        (method_type
+          (type_name
+            (primitive_type)))
+        (identifier)))
+    (interface_declaration
+      (method_declaration
+        (method_type
+          (type_name
+            (primitive_type)))
+        (identifier)))
+    (interface_declaration
+      (method_declaration
+        (method_type
+          (type_name
+            (primitive_type)))
+        (identifier)))))
+
+================================================================================
+C++ keyword as ObjC method definition
+================================================================================
+
+@implementation Foo
+- (void)new { }
+- (void)delete { }
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_implementation
+    (identifier)
+    (implementation_definition
+      (method_definition
+        (method_type
+          (type_name
+            (primitive_type)))
+        (identifier)
+        (compound_statement)))
+    (implementation_definition
+      (method_definition
+        (method_type
+          (type_name
+            (primitive_type)))
+        (identifier)
+        (compound_statement)))))
+
+================================================================================
+C++ keyword as message send method
+================================================================================
+
+void f() { [obj and]; }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (expression_statement
+        (message_expression
+          receiver: (identifier)
+          method: (identifier))))))
+
+================================================================================
+C++ keyword selector with argument in message
+================================================================================
+
+void f() { [obj new:x]; }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (expression_statement
+        (message_expression
+          receiver: (identifier)
+          method: (identifier)
+          (identifier))))))
+
+================================================================================
+Property attribute with keyword getter/setter
+================================================================================
+
+@interface Foo
+@property (getter=new) int prop;
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_interface
+    (identifier)
+    (interface_declaration
+      (property_declaration
+        (property_attributes_declaration
+          (property_attribute
+            (identifier)
+            (identifier)))
+        (struct_declaration
+          (primitive_type)
+          (struct_declarator
+            (identifier)))))))
+
+================================================================================
+Multiple operator keyword selectors
+================================================================================
+
+@interface Foo
+- (BOOL)and:(id)a or:(id)b;
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_interface
+    (identifier)
+    (interface_declaration
+      (method_declaration
+        (method_type
+          (type_name
+            (typedefed_specifier)))
+        (identifier)
+        (method_parameter
+          (method_type
+            (type_name
+              (typedefed_specifier)))
+          (identifier))
+        (identifier)
+        (method_parameter
+          (method_type
+            (type_name
+              (typedefed_specifier)))
+          (identifier))))))

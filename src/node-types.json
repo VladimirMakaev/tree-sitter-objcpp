@@ -356,6 +356,10 @@
         "named": true
       },
       {
+        "type": "type_trait_expression",
+        "named": true
+      },
+      {
         "type": "unary_expression",
         "named": true
       },
@@ -4361,6 +4365,14 @@
           "named": true
         },
         {
+          "type": "class_forward_declaration",
+          "named": true
+        },
+        {
+          "type": "class_interface",
+          "named": true
+        },
+        {
           "type": "declaration",
           "named": true
         },
@@ -4374,6 +4386,10 @@
         },
         {
           "type": "method_definition",
+          "named": true
+        },
+        {
+          "type": "namespace_definition",
           "named": true
         },
         {
@@ -4621,6 +4637,10 @@
         },
         {
           "type": "method_declaration",
+          "named": true
+        },
+        {
+          "type": "namespace_definition",
           "named": true
         },
         {
@@ -8362,6 +8382,11 @@
     }
   },
   {
+    "type": "this",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "throw_specifier",
     "named": true,
     "fields": {},
@@ -8759,11 +8784,15 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
           "type": "alignas_qualifier",
+          "named": true
+        },
+        {
+          "type": "expression",
           "named": true
         }
       ]
@@ -8787,6 +8816,32 @@
         },
         {
           "type": "type_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_trait_expression",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "type_descriptor",
           "named": true
         }
       ]
@@ -9965,6 +10020,10 @@
     "named": false
   },
   {
+    "type": "__ptrauth",
+    "named": false
+  },
+  {
     "type": "__ptrauth_objc_class_ro",
     "named": false
   },
@@ -10439,7 +10498,7 @@
   },
   {
     "type": "this",
-    "named": true
+    "named": false
   },
   {
     "type": "thread_local",

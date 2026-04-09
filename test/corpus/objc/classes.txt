@@ -176,3 +176,71 @@ Instance variables with visibility
           (struct_declarator
             (identifier)))))
     ))
+
+================================================================================
+Namespace inside @implementation
+================================================================================
+
+@implementation Foo
+namespace { int helper() { return 0; } }
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_implementation
+    (identifier)
+    (implementation_definition
+      (namespace_definition
+        body: (declaration_list
+          (function_definition
+            type: (primitive_type)
+            declarator: (function_declarator
+              declarator: (identifier)
+              parameters: (parameter_list))
+            body: (compound_statement
+              (return_statement
+                (number_literal)))))))))
+
+================================================================================
+@class forward declaration inside @implementation
+================================================================================
+
+@implementation Foo
+@class Bar;
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_implementation
+    (identifier)
+    (implementation_definition
+      (class_forward_declaration
+        (identifier)))))
+
+================================================================================
+Nested @interface inside @implementation
+================================================================================
+
+@implementation Foo
+@interface Foo (Internal)
+- (void)helper;
+@end
+@end
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_implementation
+    (identifier)
+    (implementation_definition
+      (class_interface
+        (identifier)
+        category: (identifier)
+        (interface_declaration
+          (method_declaration
+            (method_type
+              (type_name
+                (primitive_type)))
+            (identifier)))))))

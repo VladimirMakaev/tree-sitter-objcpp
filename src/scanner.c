@@ -5,7 +5,7 @@
 #include <string.h>
 #include <wctype.h>
 
-enum TokenType { RAW_STRING_DELIMITER, RAW_STRING_CONTENT, ATTR_OPEN };
+enum TokenType { RAW_STRING_DELIMITER, RAW_STRING_CONTENT, ATTR_OPEN, TYPE_TRAIT_KEYWORD };
 
 /// The spec limits delimiters to 16 chars
 #define MAX_DELIMITER_LENGTH 16
@@ -188,6 +188,60 @@ static bool scan_attr_open(TSLexer *lexer) {
     }
 }
 
+/// Check if a string matches a known type trait prefix after "__"
+/// Known prefixes: is_, has_, add_, remove_, make_, reference_, decay, underlying_type
+static bool is_type_trait_prefix(const char *buf, int len) {
+    if (len >= 3 && buf[0] == 'i' && buf[1] == 's' && buf[2] == '_') return true;
+    if (len >= 4 && buf[0] == 'h' && buf[1] == 'a' && buf[2] == 's' && buf[3] == '_') return true;
+    if (len >= 4 && buf[0] == 'a' && buf[1] == 'd' && buf[2] == 'd' && buf[3] == '_') return true;
+    if (len >= 7 && memcmp(buf, "remove_", 7) == 0) return true;
+    if (len >= 5 && memcmp(buf, "make_", 5) == 0) return true;
+    if (len >= 10 && memcmp(buf, "reference_", 10) == 0) return true;
+    if (len == 5 && memcmp(buf, "decay", 5) == 0) return true;
+    if (len == 16 && memcmp(buf, "underlying_type", 15) == 0) return true;
+    return false;
+}
+
+/// Scan type trait keywords: __is_*, __has_*, __add_*, __remove_*, __make_*,
+/// __decay, __underlying_type, __reference_*
+/// These are Clang/GCC type trait intrinsics that take type arguments.
+static bool scan_type_trait_keyword(TSLexer *lexer) {
+    // Must start with '__'
+    if (lexer->lookahead != '_') return false;
+    advance(lexer);
+    if (lexer->lookahead != '_') return false;
+    advance(lexer);
+
+    // Read the rest of the identifier: [a-z_]+
+    char buf[64];
+    int len = 0;
+    while ((lexer->lookahead >= 'a' && lexer->lookahead <= 'z') ||
+           lexer->lookahead == '_') {
+        if (len < 63) buf[len] = (char)lexer->lookahead;
+        len++;
+        advance(lexer);
+    }
+
+    // Must have at least some chars after __
+    if (len == 0 || len > 63) return false;
+
+    // Must NOT be followed by more identifier chars
+    if (iswalnum(lexer->lookahead) || lexer->lookahead == '_') return false;
+
+    // Check if it matches a known type trait prefix
+    if (!is_type_trait_prefix(buf, len)) return false;
+
+    lexer->mark_end(lexer);
+
+    // Must be followed by '(' (after optional whitespace) to be a type trait
+    while (lexer->lookahead == ' ' || lexer->lookahead == '\t' ||
+           lexer->lookahead == '\n' || lexer->lookahead == '\r') {
+        advance(lexer);
+    }
+
+    return lexer->lookahead == '(';
+}
+
 void *tree_sitter_objcpp_external_scanner_create() {
     Scanner *scanner = (Scanner *)ts_calloc(1, sizeof(Scanner));
     memset(scanner, 0, sizeof(Scanner));
@@ -198,8 +252,24 @@ bool tree_sitter_objcpp_external_scanner_scan(void *payload, TSLexer *lexer, con
     Scanner *scanner = (Scanner *)payload;
 
     // Error recovery: if all externals are valid, bail out
-    if (valid_symbols[RAW_STRING_DELIMITER] && valid_symbols[RAW_STRING_CONTENT] && valid_symbols[ATTR_OPEN]) {
+    if (valid_symbols[RAW_STRING_DELIMITER] && valid_symbols[RAW_STRING_CONTENT] &&
+        valid_symbols[ATTR_OPEN] && valid_symbols[TYPE_TRAIT_KEYWORD]) {
         return false;
+    }
+
+    // Try TYPE_TRAIT_KEYWORD when valid
+    if (valid_symbols[TYPE_TRAIT_KEYWORD] && !valid_symbols[RAW_STRING_DELIMITER] && !valid_symbols[RAW_STRING_CONTENT]) {
+        // Skip leading whitespace
+        while (lexer->lookahead == ' ' || lexer->lookahead == '\t' ||
+               lexer->lookahead == '\n' || lexer->lookahead == '\r') {
+            lexer->advance(lexer, true);
+        }
+        if (lexer->lookahead == '_') {
+            lexer->result_symbol = TYPE_TRAIT_KEYWORD;
+            if (scan_type_trait_keyword(lexer)) {
+                return true;
+            }
+        }
     }
 
     // Try ATTR_OPEN when valid and raw string tokens are NOT valid

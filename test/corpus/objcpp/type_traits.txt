@@ -1,0 +1,72 @@
+================================================================================
+__is_pointer type trait
+================================================================================
+
+static_assert(__is_pointer(int*), "");
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (static_assert_declaration
+    condition: (type_trait_expression
+      name: (identifier)
+      (type_descriptor
+        type: (primitive_type)
+        declarator: (abstract_pointer_declarator)))
+    message: (string_literal)))
+
+================================================================================
+__is_base_of type trait with two type arguments
+================================================================================
+
+static_assert(__is_base_of(Base, Derived), "");
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (static_assert_declaration
+    condition: (type_trait_expression
+      name: (identifier)
+      (type_descriptor
+        type: (type_identifier))
+      (type_descriptor
+        type: (type_identifier)))
+    message: (string_literal)))
+
+================================================================================
+__is_same type trait
+================================================================================
+
+static_assert(__is_same(int, int), "");
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (static_assert_declaration
+    condition: (type_trait_expression
+      name: (identifier)
+      (type_descriptor
+        type: (primitive_type))
+      (type_descriptor
+        type: (primitive_type)))
+    message: (string_literal)))
+
+================================================================================
+Transformation type traits
+================================================================================
+
+static_assert(__is_pointer(__add_pointer(int)), "");
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (static_assert_declaration
+    condition: (type_trait_expression
+      name: (identifier)
+      (type_descriptor
+        type: (type_identifier)
+        declarator: (abstract_function_declarator
+          parameters: (parameter_list
+            (parameter_declaration
+              type: (primitive_type))))))
+    message: (string_literal)))

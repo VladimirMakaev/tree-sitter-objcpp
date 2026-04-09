@@ -1,0 +1,38 @@
+================================================================================
+__ptrauth qualifier with arguments
+================================================================================
+
+int * __ptrauth(1,1,50) f;
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (declaration
+    type: (primitive_type)
+    declarator: (pointer_declarator
+      (type_qualifier
+        (number_literal)
+        (number_literal)
+        (number_literal))
+      declarator: (identifier))))
+
+================================================================================
+__ptrauth qualifier in struct field
+================================================================================
+
+struct S { int * __ptrauth(2,0,100) ptr; };
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (struct_specifier
+    name: (type_identifier)
+    body: (field_declaration_list
+      (field_declaration
+        type: (primitive_type)
+        declarator: (pointer_declarator
+          (type_qualifier
+            (number_literal)
+            (number_literal)
+            (number_literal))
+          declarator: (field_identifier))))))
